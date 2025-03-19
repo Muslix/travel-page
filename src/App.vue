@@ -39,7 +39,7 @@ function navigateTo(page) {
         <div class="row">
           <div class="col-md-5">
             <h5 class="mb-3">600km Radtour Challenge</h5>
-            <p class="mb-3">Eine epische Radtour Ende Mai 2024 - Folge unserem Abenteuer!</p>
+            <p class="mb-3">Eine epische Radtour Ende Mai 2025 - Folge unserem Abenteuer!</p>
             <div class="social-icons">
               <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
               <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
@@ -73,7 +73,7 @@ function navigateTo(page) {
         <hr class="mt-4 mb-3 border-secondary">
         <div class="row align-items-center">
           <div class="col-md-6 text-center text-md-start">
-            <p class="mb-0 small">&copy; 2024 600km Radtour Challenge. Alle Rechte vorbehalten.</p>
+            <p class="mb-0 small">&copy; 2025 600km Radtour Challenge. Alle Rechte vorbehalten.</p>
           </div>
           <div class="col-md-6 text-center text-md-end">
             <button class="btn btn-sm btn-outline-light" @click="window.scrollTo({top: 0, behavior: 'smooth'})">

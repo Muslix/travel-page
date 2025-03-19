@@ -4,7 +4,7 @@
     <div class="hero-parallax">
       <div class="parallax-content">
         <h1 class="display-2 mb-4 fw-bold text-shadow">600km Radtour Challenge</h1>
-        <p class="lead mb-4 fw-light fs-3">Das Abenteuer beginnt Ende Mai 2024!</p>
+        <p class="lead mb-4 fw-light fs-3">Das Abenteuer beginnt Ende Mai 2025!</p>
         <div class="hero-buttons">
           <button class="btn btn-primary btn-lg me-2 bounce-animation" @click="$emit('navigate', 'equipment')">
             <i class="bi bi-bicycle me-2"></i>Ausrüstung entdecken
@@ -159,8 +159,8 @@ defineEmits(['navigate']);
 onMounted(() => {
   // Countdown-Timer Funktion
   const countdownTimer = () => {
-    // Target date: May 31, 2024
-    const targetDate = new Date('May 31, 2024 00:00:00').getTime();
+    // Target date: May 25, 2025
+    const targetDate = new Date('May 25, 2025 00:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
