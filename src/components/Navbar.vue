@@ -3,7 +3,7 @@
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#" @click.prevent="$emit('navigate', 'home')">
         <i class="bi bi-bicycle me-2"></i>
-        <span>Radtour 600km</span>
+        <span>RAMAdventure</span>
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -40,7 +40,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link highlight-link" href="#"
-               @click.prevent="showDonateModal = true">
+               @click.prevent="openDonateModal">
                <i class="bi bi-heart-fill me-1"></i> Unterstützen
             </a>
           </li>
@@ -48,11 +48,11 @@
       </div>
     </div>
 
-    <!-- Spenden-Modal -->
-    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel"
-         aria-hidden="true" v-if="showDonateModal" @hidden.bs.modal="showDonateModal = false">
+    <!-- Spenden-Modal mit einheitlichem Design -->
+    <!-- Das Modal ist immer im DOM, wird aber durch Bootstrap ein- und ausgeblendet -->
+    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content border-0 shadow">
           <div class="modal-header">
             <h5 class="modal-title" id="donateModalLabel">Unterstütze unser Projekt</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -73,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, nextTick } from 'vue';
 
 const props = defineProps({
   currentPage: {
@@ -97,24 +97,26 @@ const navigateTo = (page) => {
 
 const emit = defineEmits(['navigate']);
 
+// Bootstrap-Modal Referenz
+let modalInstance = null;
+
+// Funktion zum Öffnen des Modals
+const openDonateModal = () => {
+  if (modalInstance) {
+    modalInstance.show();
+  }
+};
+
 // Bootstrap-Modal initialisieren
 onMounted(() => {
-  // Bootstrap-Modale initialisieren, wenn Bootstrap geladen ist
-  window.addEventListener('load', () => {
-    if (window.bootstrap && window.bootstrap.Modal) {
+  // Warten bis das DOM vollständig geladen ist
+  nextTick(() => {
+    if (window.bootstrap) {
       const modalElement = document.getElementById('donateModal');
       if (modalElement) {
-        const modal = new window.bootstrap.Modal(modalElement);
-
-        // Modal zeigen, wenn showDonateModal true ist
-        watch(showDonateModal, (show) => {
-          if (show) {
-            modal.show();
-          } else {
-            modal.hide();
-          }
-        });
-
+        // Bootstrap Modal initialisieren
+        modalInstance = new window.bootstrap.Modal(modalElement);
+        
         // Event-Listener für das Schließen des Modals
         modalElement.addEventListener('hidden.bs.modal', () => {
           showDonateModal.value = false;
@@ -131,6 +133,15 @@ onMounted(() => {
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   padding: 15px 0;
   transition: all 0.3s ease;
+  z-index: 1000; /* Stellt sicher, dass die Navbar über anderen Elementen liegt */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+}
+
+.navbar > .container {
+  width: 100%;
+  overflow: visible; /* Erlaubt dem Dropdown-Menü, sichtbar zu sein */
 }
 
 .navbar-brand {
@@ -186,6 +197,15 @@ onMounted(() => {
   color: white;
 }
 
+/* Modal-Stile */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
 /* Responsive Anpassungen */
 @media (max-width: 991px) {
   .navbar-collapse {
@@ -194,6 +214,7 @@ onMounted(() => {
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     margin-top: 10px;
+    width: 100%; /* Stellt sicher, dass es nicht überläuft */
   }
 
   .nav-link {

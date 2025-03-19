@@ -1,7 +1,7 @@
 <template>
   <div class="route">
     <div class="container py-5">
-      <h1 class="display-4 mb-5 text-center">Unsere 600km Route</h1>
+      <h1 class="display-4 mb-5 text-center">RAMAdventure: Unsere 630km Route</h1>
 
       <div class="row mb-5">
         <div class="col-lg-8 mb-4">
@@ -15,8 +15,8 @@
                 </div>
               </div>
               <p class="mt-3">
-                Unsere 600km Route führt durch malerische Landschaften, kleine Dörfer und entlang schöner Flüsse.
-                Die genaue Streckenführung wird noch festgelegt.
+                Unsere 630km Route führt durch malerische Landschaften, kleine Dörfer und entlang schöner Flüsse von Mainz nach Calais.
+                Die Route umfasst etwa 5000 Höhenmeter bergauf und 5000 Höhenmeter bergab über die gesamte Strecke.
               </p>
             </div>
           </div>
@@ -29,27 +29,31 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Gesamtdistanz:</span>
-                  <strong>600 km</strong>
+                  <strong>630 km</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Geplante Dauer:</span>
-                  <strong>7 Tage</strong>
+                  <strong>6 Tage</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
-                  <span>Höhenmeter:</span>
-                  <strong>ca. 3000 m</strong>
+                  <span>Höhenmeter aufwärts:</span>
+                  <strong>ca. 5000 m</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Höhenmeter abwärts:</span>
+                  <strong>ca. 5000 m</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Durchschnitt pro Tag:</span>
-                  <strong>~85 km</strong>
+                  <strong>~105 km</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Start:</span>
-                  <strong>TBD</strong>
+                  <strong>Mainz</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Ziel:</span>
-                  <strong>TBD</strong>
+                  <strong>Calais</strong>
                 </li>
               </ul>
             </div>
@@ -74,66 +78,58 @@
             <tbody>
               <tr>
                 <td>Tag 1</td>
-                <td>Startpunkt</td>
-                <td>Ort 1</td>
-                <td>80 km</td>
-                <td>450 m</td>
-                <td>Flache Etappe zum Einstieg</td>
+                <td>Mainz</td>
+                <td>Trier</td>
+                <td>105 km</td>
+                <td>850 m</td>
+                <td>Entlang des Rheins und der Mosel</td>
               </tr>
               <tr>
                 <td>Tag 2</td>
-                <td>Ort 1</td>
-                <td>Ort 2</td>
-                <td>90 km</td>
-                <td>600 m</td>
-                <td>Gebirgspass mit schöner Aussicht</td>
+                <td>Trier</td>
+                <td>Luxemburg</td>
+                <td>105 km</td>
+                <td>950 m</td>
+                <td>Grenzübergang nach Luxemburg</td>
               </tr>
               <tr>
                 <td>Tag 3</td>
-                <td>Ort 2</td>
-                <td>Ort 3</td>
-                <td>75 km</td>
-                <td>300 m</td>
-                <td>Entlang eines Flusses</td>
+                <td>Luxemburg</td>
+                <td>Namur</td>
+                <td>110 km</td>
+                <td>800 m</td>
+                <td>Durch die belgischen Ardennen</td>
               </tr>
               <tr>
                 <td>Tag 4</td>
-                <td>Ort 3</td>
-                <td>Ort 4</td>
-                <td>95 km</td>
-                <td>500 m</td>
-                <td>Längste Tagesetappe</td>
+                <td>Namur</td>
+                <td>Brüssel</td>
+                <td>100 km</td>
+                <td>600 m</td>
+                <td>Entlang der Maas</td>
               </tr>
               <tr>
                 <td>Tag 5</td>
-                <td>Ort 4</td>
-                <td>Ort 5</td>
-                <td>85 km</td>
-                <td>450 m</td>
-                <td>Sehenswürdigkeit unterwegs</td>
+                <td>Brüssel</td>
+                <td>Lille</td>
+                <td>105 km</td>
+                <td>800 m</td>
+                <td>Durch flämische Landschaften</td>
               </tr>
               <tr>
                 <td>Tag 6</td>
-                <td>Ort 5</td>
-                <td>Ort 6</td>
-                <td>80 km</td>
-                <td>350 m</td>
-                <td>Schöne Landschaft</td>
-              </tr>
-              <tr>
-                <td>Tag 7</td>
-                <td>Ort 6</td>
-                <td>Ziel</td>
-                <td>95 km</td>
-                <td>350 m</td>
-                <td>Finale Etappe</td>
+                <td>Lille</td>
+                <td>Calais</td>
+                <td>105 km</td>
+                <td>1000 m</td>
+                <td>Finale Etappe mit Blick aufs Meer</td>
               </tr>
             </tbody>
             <tfoot>
               <tr class="table-info">
                 <td colspan="3"><strong>Gesamt</strong></td>
-                <td><strong>600 km</strong></td>
-                <td><strong>3000 m</strong></td>
+                <td><strong>630 km</strong></td>
+                <td><strong>5000 m</strong></td>
                 <td></td>
               </tr>
             </tfoot>

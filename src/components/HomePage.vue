@@ -1,15 +1,15 @@
 <template>
   <div class="home page-transition">
-    <!-- Modernes Hero Banner mit Parallax-Effekt -->
+    <!-- Modernes Hero Banner mit verbessertem Parallax-Effekt -->
     <div class="hero-parallax">
       <div class="parallax-content">
         <h1 class="display-2 mb-4 fw-bold text-shadow">600km Radtour Challenge</h1>
         <p class="lead mb-4 fw-light fs-3">Das Abenteuer beginnt Ende Mai 2025!</p>
         <div class="hero-buttons">
-          <button class="btn btn-primary btn-lg me-2 bounce-animation" @click="$emit('navigate', 'equipment')">
+          <button class="btn btn-primary btn-lg me-2" @click="$emit('navigate', 'equipment')">
             <i class="bi bi-bicycle me-2"></i>Ausrüstung entdecken
           </button>
-          <button class="btn btn-outline-light btn-lg pulse-animation" @click="$emit('navigate', 'route')">
+          <button class="btn btn-outline-light btn-lg" @click="$emit('navigate', 'route')">
             <i class="bi bi-map me-2"></i>Route ansehen
           </button>
         </div>
@@ -50,11 +50,11 @@
     </div>
 
     <div class="container my-5">
-      <!-- Verbesserte Über Uns Karten mit Hover-Effekten -->
-      <h2 class="text-center mb-4 section-header">Über unser Projekt</h2>
+      <!-- Verbesserte Über Uns Karten mit vereinheitlichtem Design -->
+      <h2 class="section-title mb-4">Über unser Projekt</h2>
       <div class="row">
         <div class="col-md-6 mb-4">
-          <div class="card modern-card h-100">
+          <div class="unified-card h-100">
             <div class="card-body">
               <div class="card-icon">
                 <i class="bi bi-people-fill"></i>
@@ -72,7 +72,7 @@
         </div>
 
         <div class="col-md-6 mb-4">
-          <div class="card modern-card h-100">
+          <div class="unified-card h-100">
             <div class="card-body">
               <div class="card-icon">
                 <i class="bi bi-flag-fill"></i>
@@ -91,8 +91,8 @@
       </div>
 
       <!-- Features-Sektion mit Icons -->
-      <div class="features-section my-5">
-        <h2 class="text-center mb-5 section-header">Was dich erwartet</h2>
+      <div class="features-section my-5 section-spacing">
+        <h2 class="section-title mb-5">Was dich erwartet</h2>
         <div class="row text-center">
           <div class="col-lg-3 col-md-6 mb-4">
             <div class="feature-item">
@@ -129,7 +129,7 @@
 
       <!-- Newsletter-Anmeldung -->
       <div class="newsletter-section py-5">
-        <div class="card newsletter-card">
+        <div class="unified-card newsletter-card">
           <div class="card-body p-4">
             <div class="row align-items-center">
               <div class="col-md-6">
@@ -184,13 +184,14 @@ onMounted(() => {
     setInterval(updateTimer, 1000);
   };
 
-  // Parallax-Effekt für Hero-Banner
+  // Verbesserter Parallax-Effekt für Hero-Banner
   const parallaxEffect = () => {
     window.addEventListener('scroll', () => {
       const scrollPosition = window.scrollY;
       const heroElement = document.querySelector('.hero-parallax');
       if (heroElement) {
-        heroElement.style.backgroundPositionY = `${scrollPosition * 0.5}px`;
+        // Sanfterer Parallax-Effekt
+        heroElement.style.backgroundPositionY = `calc(50% + ${scrollPosition * 0.3}px)`;
       }
     });
   };
@@ -206,8 +207,7 @@ onMounted(() => {
 .hero-parallax {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/hero-bike.jpg');
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-position: center 50%;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -215,31 +215,20 @@ onMounted(() => {
   text-align: center;
   color: white;
   position: relative;
+  overflow: hidden; /* Verhindert überlappendes Scrollen */
 }
 
 .parallax-content {
   max-width: 800px;
   padding: 0 20px;
+  z-index: 2; /* Stellt sicher, dass der Inhalt über dem Parallax-Hintergrund liegt */
 }
 
 .text-shadow {
   text-shadow: 2px 4px 8px rgba(0,0,0,0.6);
 }
 
-/* Moderne Karten */
-.modern-card {
-  border: none;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.5s ease;
-}
-
-.modern-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-}
-
+/* Vereinheitlichte Karten-Stile */
 .card-icon {
   font-size: 2.5rem;
   margin-bottom: 20px;
@@ -275,39 +264,6 @@ onMounted(() => {
   color: var(--primary-color);
 }
 
-/* Animation Classes */
-.bounce-animation {
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-10px);
-  }
-  60% {
-    transform: translateY(-5px);
-  }
-}
-
-.pulse-animation {
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
@@ -315,6 +271,7 @@ onMounted(() => {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  z-index: 3;
 }
 
 .mouse {
@@ -402,28 +359,9 @@ onMounted(() => {
 }
 
 .newsletter-card {
-  border: none;
   border-radius: 15px;
   background-image: linear-gradient(to right, #f8f9fa, #e9ecef);
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-/* Section Header */
-.section-header {
-  position: relative;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
-}
-
-.section-header:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: var(--primary-color);
 }
 
 /* Responsive Anpassungen */

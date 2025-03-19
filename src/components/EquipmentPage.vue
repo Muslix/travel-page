@@ -2,12 +2,12 @@
   <div class="equipment page-transition">
     <div class="container py-5">
       <h1 class="display-4 mb-5 text-center">Unsere Ausrüstung</h1>
-
+      
       <!-- Tour Info Banner -->
       <div class="tour-info-banner mb-5 p-4 rounded">
         <div class="row align-items-center">
           <div class="col-md-7">
-            <h2>600km Tour von Mainz nach Calais</h2>
+            <h2>RAMAdventure: 630km Tour von Mainz nach Calais</h2>
             <p class="lead mb-3">25.-30. Mai 2025 durch Deutschland, Belgien und Frankreich</p>
             <div class="d-flex flex-wrap">
               <div class="info-badge me-2 mb-2"><i class="bi bi-calendar"></i> 6 Tage</div>
@@ -51,18 +51,18 @@
         <div class="tab-pane fade show active" id="martin" role="tabpanel" aria-labelledby="martin-tab">
           <div class="row mb-4">
             <div class="col-md-4 mb-4">
-              <div class="equipment-profile card h-100">
+              <div class="equipment-profile card">
                 <div class="card-body">
                   <div class="text-center mb-4">
                     <i class="bi bi-person-circle profile-icon"></i>
                     <h3 class="mt-3">Martin</h3>
-                    <p class="text-muted">Radlertyp: Touring-Enthusiast</p>
+                    <p class="text-muted">Radlertyp: Gravel-Abenteurer</p>
                   </div>
-                  <p>Der klassische Tourenfahrer, der auf bewährte Ausrüstung und Komfort setzt. Mit einem stabilen Trekkingrad und traditionellen Packtaschen ist er für die lange Strecke gerüstet.</p>
+                  <p>Der moderne Bikepacker mit perfekter Balance zwischen Leichtigkeit und Komfort. Auf seinem Gravelbike setzt Martin auf hochwertige Ausrüstung und durchdachte Packtaschen für maximale Effizienz.</p>
                   <div class="equipment-style">
-                    <div class="style-tag">Robust</div>
-                    <div class="style-tag">Komfortabel</div>
-                    <div class="style-tag">Klassisch</div>
+                    <div class="style-tag">Leichtgewicht</div>
+                    <div class="style-tag">Qualitativ</div>
+                    <div class="style-tag">Durchdacht</div>
                   </div>
                 </div>
               </div>
@@ -80,8 +80,8 @@
                           <h4><i class="bi bi-bicycle me-2"></i>Mein Fahrrad</h4>
                           <div class="bike-details">
                             <img src="/bike-placeholder.jpg" alt="Martins Fahrrad" class="img-fluid rounded mb-2">
-                            <h5>Trek 520 Touring</h5>
-                            <p>Solides Stahlrahmen-Trekkingrad speziell für lange Radreisen konzipiert. Mit stabilen 36-Speichen-Laufrädern und bequemer Geometrie für lange Tage im Sattel.</p>
+                            <h5>Canyon Grizl CF SLX 8 Di2 GRC</h5>
+                            <p>Hochwertiges Carbon-Gravelbike mit elektronischer Shimano Di2 Schaltung. Perfekt für lange Strecken auf unterschiedlichen Untergründen mit optimaler Balance zwischen Geschwindigkeit und Komfort.</p>
                           </div>
                         </div>
                       </div>
@@ -91,39 +91,99 @@
                           <h4><i class="bi bi-house me-2"></i>Mein Zelt</h4>
                           <div class="tent-details">
                             <img src="/tent-placeholder.jpg" alt="Martins Zelt" class="img-fluid rounded mb-2">
-                            <h5>MSR Hubba Hubba 1P</h5>
-                            <p>Kompaktes Einpersonenzelt mit guter Balance zwischen Gewicht und Stabilität. Schnell aufzubauen und sturmsicher für alle Wetterbedingungen.</p>
+                            <h5>Leichtzelt (Details folgen)</h5>
+                            <p>Kompaktes Zelt für Bikepacking-Abenteuer mit optimalem Gewichts-Raum-Verhältnis.</p>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <h4 class="mt-4">Weitere Ausrüstungsgegenstände</h4>
+                  <h4 class="mt-4">Bikepacking-Taschen</h4>
                   <div class="equipment-list">
                     <div class="equipment-item">
                       <i class="bi bi-bag"></i>
-                      <span><strong>Ortlieb Back-Roller Classic</strong> - Bewährte wasserdichte Packtaschen</span>
+                      <span><strong>Ortlieb Frame-Pack Toptube 3L</strong> - Rahmentasche in Dark Sand</span>
                     </div>
                     <div class="equipment-item">
+                      <i class="bi bi-bag"></i>
+                      <span><strong>Ortlieb Fork-Pack 4.1L</strong> - 2x Gabeltaschen in Dark Sand</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-bag"></i>
+                      <span><strong>Ortlieb Handlebar-Pack 9L</strong> - Lenkerrolle in Dark Sand</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-bag"></i>
+                      <span><strong>Ortlieb Seat-Pack L 16.5L</strong> - Satteltasche in Dark Sand</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-bag"></i>
+                      <span><strong>AGU Venture Snack-pack</strong> - Food Pouch / Bottle Bag 1L, Reflektive Mist (2x)</span>
+                    </div>
+                  </div>
+
+                  <h4 class="mt-4">Schlafen & Komfort</h4>
+                  <div class="equipment-list">
+                    <div class="equipment-item">
                       <i class="bi bi-moon"></i>
-                      <span><strong>Thermarest NeoAir</strong> - Komfortable Isomatte für erholsamen Schlaf</span>
+                      <span><strong>Nomadic Micro-Fibre Sleeping Bag</strong> - Leichter Schlafsack von Zürcher Crafts</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-hospital"></i>
+                      <span><strong>HIKENTURE Aufblasbares Camping Kissen</strong> - Leichtes Reisekissen mit abnehmbarem Bezug</span>
+                    </div>
+                  </div>
+
+                  <h4 class="mt-4">Kleidung & Wetterschutz</h4>
+                  <div class="equipment-list">
+                    <div class="equipment-item">
+                      <i class="bi bi-thermometer-half"></i>
+                      <span><strong>DANISH ENDURANCE Merino Multifunktionstuch</strong> - Vielseitiger Schlauchschal, dunkelgrün</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-droplet"></i>
+                      <span><strong>Zouwel Fahrradmützen (3 Stück)</strong> - Winddichte Mützen zum Tragen unter dem Helm</span>
                     </div>
                     <div class="equipment-item">
                       <i class="bi bi-bag-check"></i>
-                      <span><strong>Schlafsack</strong> - 3-Jahreszeiten Schlafsack, Komfortbereich bis 5°C</span>
+                      <span><strong>DANISH ENDURANCE Merino Wolle Wandersocken</strong> - 3 Paar leichte Wollsocken, marineblau</span>
+                    </div>
+                  </div>
+                  
+                  <h4 class="mt-4">Kochen & Essen</h4>
+                  <div class="equipment-list">
+                    <div class="equipment-item">
+                      <i class="bi bi-fire"></i>
+                      <span><strong>Bushpeak Gaskocher</strong> - Outdoor Instantboil mit Kochtopf (900ml) und Piezozündung</span>
                     </div>
                     <div class="equipment-item">
-                      <i class="bi bi-headset"></i>
-                      <span><strong>Stirnlampe</strong> - Für Arbeiten am Zelt nach Sonnenuntergang</span>
+                      <i class="bi bi-fuel-pump"></i>
+                      <span><strong>Primus Power Gas</strong> - Schraubbare Gaskartusche, 100g</span>
                     </div>
                     <div class="equipment-item">
                       <i class="bi bi-cup-hot"></i>
-                      <span><strong>Campinggeschirr</strong> - Leichte Titanschale und -becher</span>
+                      <span><strong>OUTXE Titanium Camping-Utensilenset</strong> - 3-teiliges Besteckset mit Etui</span>
+                    </div>
+                  </div>
+
+                  <h4 class="mt-4">Sicherheit & Notfälle</h4>
+                  <div class="equipment-list">
+                    <div class="equipment-item">
+                      <i class="bi bi-lightbulb"></i>
+                      <span><strong>LE Stirnlampe LED</strong> - Wiederaufladbar mit 5 Lichtmodi und Rotlicht</span>
                     </div>
                     <div class="equipment-item">
-                      <i class="bi bi-moisture"></i>
-                      <span><strong>Regenjacke & -hose</strong> - Wasserdichte Kleidung für alle Wetterbedingungen</span>
+                      <i class="bi bi-bandaid"></i>
+                      <span><strong>Pharmavoyage First Aid Pocket</strong> - Kompaktes Erste-Hilfe-Set</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-lock"></i>
+                      <span><strong>ABUS Combiflex Break 85</strong> - Seilschloss, 85cm, Midnight Blue</span>
+                    </div>
+                    <div class="equipment-item">
+                      <i class="bi bi-brush"></i>
+                      <span><strong>BasicNature Zahnputzset Elmex/Aronal</strong> - Kompaktes Zahnpflegeset</span>
                     </div>
                   </div>
                 </div>
@@ -132,14 +192,14 @@
           </div>
 
           <div class="equipment-philosophy mt-4 p-4 rounded">
-            <h4>Meine Touring-Philosophie</h4>
+            <h4>Meine Bikepacking-Philosophie</h4>
             <p>
-              Ich bevorzuge ein traditionelles Touring-Setup, das zuverlässig und bewährt ist.
-              Lieber etwas mehr Gewicht für zusätzlichen Komfort und Sicherheit als ultraleicht und
-              dann im Regen frieren oder bei technischen Problemen hilflos sein.
+              Ich setze auf ein modernes Bikepacking-Setup mit einem leichten, aber komfortablen Gravelbike.
+              Durch die Verwendung hochwertiger Ortlieb-Taschen und durchdachter Ausrüstung finde ich die 
+              perfekte Balance zwischen Gewichtsersparnis und notwendigem Komfort für lange Touren.
             </p>
             <p class="mb-0">
-              Mein Motto: <em>"Gut vorbereitet ist halb gefahren."</em>
+              Mein Motto: <em>"Qualität spart Gewicht und schont die Nerven."</em>
             </p>
           </div>
         </div>
@@ -148,7 +208,7 @@
         <div class="tab-pane fade" id="rafael" role="tabpanel" aria-labelledby="rafael-tab">
           <div class="row mb-4">
             <div class="col-md-4 mb-4">
-              <div class="equipment-profile card h-100 rafael-profile">
+              <div class="equipment-profile card rafael-profile">
                 <div class="card-body">
                   <div class="text-center mb-4">
                     <i class="bi bi-person-circle profile-icon"></i>
@@ -347,75 +407,24 @@ defineEmits(['navigate']);
 </script>
 
 <style scoped>
-/* Tour Info Banner */
+/* Component-specific styles that override or extend the global styles */
+
+/* Tour Info Banner - specific to this page */
 .tour-info-banner {
   background: linear-gradient(to right, var(--primary-color), #0097ff);
   color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
 }
 
-.info-badge {
-  display: inline-block;
-  background: rgba(255,255,255,0.2);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-}
-
-.info-badge i {
-  margin-right: 5px;
-}
-
-/* Equipment Tabs */
-.equipment-tabs {
-  border-bottom: 1px solid #dee2e6;
-}
-
-.equipment-tabs .nav-link {
-  border: none;
-  color: var(--secondary-color);
-  position: relative;
-  font-weight: 500;
-}
-
-.equipment-tabs .nav-link:after {
-  content: '';
-  position: absolute;
-  height: 3px;
-  width: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--primary-color);
-  transition: width 0.3s ease;
-}
-
-.equipment-tabs .nav-link.active {
-  color: var(--primary-color);
-  background-color: transparent;
-  border: none;
-}
-
-.equipment-tabs .nav-link.active:after {
-  width: 80%;
-}
-
-/* Profile Cards */
-.equipment-profile {
-  background: #f8f9fa;
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
+/* Profile-specific styles */
 .profile-icon {
   font-size: 4rem;
   color: var(--primary-color);
 }
 
 .rafael-profile .profile-icon {
-  color: #28a745;
+  color: var(--accent-color);
 }
 
 .equipment-style {
@@ -428,74 +437,34 @@ defineEmits(['navigate']);
   background-color: rgba(0,123,255,0.1);
   color: var(--primary-color);
   padding: 5px 10px;
-  border-radius: 15px;
+  border-radius: var(--radius-pill);
   margin-right: 8px;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
 
-/* Equipment Items */
-.equipment-main {
-  margin-top: 20px;
-}
-
+/* Equipment specific components */
 .bike-section, .tent-section {
   margin-bottom: 20px;
 }
 
 .bike-details, .tent-details {
-  background-color: #f8f9fa;
+  background-color: var(--background-light);
   padding: 15px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 
-.equipment-list {
-  margin-top: 15px;
-}
-
-.equipment-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.equipment-item:hover {
-  background-color: #e9ecef;
-  transform: translateX(5px);
-}
-
-.equipment-item i {
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  margin-right: 15px;
-  min-width: 20px;
-  text-align: center;
-}
-
-/* Equipment Philosophy */
-.equipment-philosophy {
-  background-color: #f1f8ff;
-  border-left: 5px solid var(--primary-color);
-}
-
+/* Rafael specific styles */
 .rafael-philosophy {
   background-color: #f1fff6;
-  border-left: 5px solid #28a745;
+  border-left: 5px solid var(--accent-color);
 }
 
-.shared-philosophy {
-  background-color: #f8f9fa;
-  border-left: 5px solid #17a2b8;
-}
-
-/* Shared Equipment */
+/* Shared equipment section styles */
 .shared-equipment-intro {
   background: linear-gradient(to right, #17a2b8, #5bc0de);
   color: white;
+  border-radius: var(--radius-md);
 }
 
 .shared-icon {
@@ -504,16 +473,16 @@ defineEmits(['navigate']);
 }
 
 .shared-item-card {
-  background-color: #f8f9fa;
-  border-radius: 10px;
+  background-color: var(--background-light);
+  border-radius: var(--radius-md);
   padding: 25px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
 }
 
 .shared-item-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .card-icon {
@@ -522,10 +491,8 @@ defineEmits(['navigate']);
   margin-bottom: 15px;
 }
 
-@media (max-width: 768px) {
-  .equipment-tabs .nav-link {
-    padding: 10px;
-    font-size: 0.9rem;
-  }
+.shared-philosophy {
+  background-color: var(--background-light);
+  border-left: 5px solid #17a2b8;
 }
 </style>
