@@ -20,15 +20,15 @@ function navigateTo(page) {
 <template>
   <div class="app-container">
     <Navbar @navigate="navigateTo" :currentPage="currentPage" />
-    
+
     <main>
       <transition name="fade" mode="out-in">
-        <component 
-          :is="currentPage === 'home' ? HomePage : 
-               currentPage === 'equipment' ? EquipmentPage : 
-               currentPage === 'route' ? RoutePage : 
-               currentPage === 'gallery' ? GalleryPage : null" 
-          @navigate="navigateTo" 
+        <component
+          :is="currentPage === 'home' ? HomePage :
+               currentPage === 'equipment' ? EquipmentPage :
+               currentPage === 'route' ? RoutePage :
+               currentPage === 'gallery' ? GalleryPage : null"
+          @navigate="navigateTo"
           :key="currentPage"
         />
       </transition>
@@ -83,7 +83,7 @@ function navigateTo(page) {
         </div>
       </div>
     </footer>
-    
+
     <!-- Cookie-Banner -->
     <div class="cookie-banner" id="cookieBanner">
       <div class="container">
@@ -222,11 +222,11 @@ h1, h2, h3, h4, h5 {
   .display-3 {
     font-size: 2.5rem;
   }
-  
+
   .display-4 {
     font-size: 2rem;
   }
-  
+
   .cookie-banner p {
     margin-bottom: 15px;
   }

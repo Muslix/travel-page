@@ -2,7 +2,7 @@
   <div class="route">
     <div class="container py-5">
       <h1 class="display-4 mb-5 text-center">Unsere 600km Route</h1>
-      
+
       <div class="row mb-5">
         <div class="col-lg-8 mb-4">
           <div class="card">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="col-lg-4 mb-4">
           <div class="card">
             <div class="card-body">
@@ -56,7 +56,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="mb-5">
         <h2 class="mb-4">Etappenplan</h2>
         <div class="table-responsive">
@@ -140,7 +140,7 @@
           </table>
         </div>
       </div>
-      
+
       <section>
         <h2 class="mb-4">Unterkunft & Verpflegung</h2>
         <div class="row">
@@ -168,7 +168,7 @@
           </div>
         </div>
       </section>
-      
+
       <div class="text-center mt-5">
         <button class="btn btn-primary" @click="$emit('navigate', 'home')">Zurück zur Startseite</button>
       </div>

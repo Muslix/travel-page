@@ -5,41 +5,41 @@
         <i class="bi bi-bicycle me-2"></i>
         <span>Radtour 600km</span>
       </a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-              data-bs-target="#navbarNav" aria-controls="navbarNav" 
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbarNav" aria-controls="navbarNav"
               aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: activePage === 'home' }" href="#" 
+            <a class="nav-link" :class="{ active: activePage === 'home' }" href="#"
                @click.prevent="navigateTo('home')">
                <i class="bi bi-house-door me-1"></i> Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: activePage === 'equipment' }" href="#" 
+            <a class="nav-link" :class="{ active: activePage === 'equipment' }" href="#"
                @click.prevent="navigateTo('equipment')">
                <i class="bi bi-tools me-1"></i> Equipment
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: activePage === 'route' }" href="#" 
+            <a class="nav-link" :class="{ active: activePage === 'route' }" href="#"
                @click.prevent="navigateTo('route')">
                <i class="bi bi-map me-1"></i> Route
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" :class="{ active: activePage === 'gallery' }" href="#" 
+            <a class="nav-link" :class="{ active: activePage === 'gallery' }" href="#"
                @click.prevent="navigateTo('gallery')">
                <i class="bi bi-images me-1"></i> Galerie
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link highlight-link" href="#" 
+            <a class="nav-link highlight-link" href="#"
                @click.prevent="showDonateModal = true">
                <i class="bi bi-heart-fill me-1"></i> Unterstützen
             </a>
@@ -47,9 +47,9 @@
         </ul>
       </div>
     </div>
-    
+
     <!-- Spenden-Modal -->
-    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel" 
+    <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="donateModalLabel"
          aria-hidden="true" v-if="showDonateModal" @hidden.bs.modal="showDonateModal = false">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -58,7 +58,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <p>Du kannst unsere Radtour unterstützen, indem du für einen guten Zweck spendest. 
+            <p>Du kannst unsere Radtour unterstützen, indem du für einen guten Zweck spendest.
                Wir radeln für den Klimaschutz!</p>
             <div class="d-grid gap-2">
               <button class="btn btn-outline-success" data-bs-dismiss="modal">
@@ -105,7 +105,7 @@ onMounted(() => {
       const modalElement = document.getElementById('donateModal');
       if (modalElement) {
         const modal = new window.bootstrap.Modal(modalElement);
-        
+
         // Modal zeigen, wenn showDonateModal true ist
         watch(showDonateModal, (show) => {
           if (show) {
@@ -114,7 +114,7 @@ onMounted(() => {
             modal.hide();
           }
         });
-        
+
         // Event-Listener für das Schließen des Modals
         modalElement.addEventListener('hidden.bs.modal', () => {
           showDonateModal.value = false;
@@ -195,11 +195,11 @@ onMounted(() => {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     margin-top: 10px;
   }
-  
+
   .nav-link {
     margin: 5px 0;
   }
-  
+
   .highlight-link {
     margin-top: 10px;
   }

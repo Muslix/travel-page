@@ -3,37 +3,37 @@
     <div class="container py-5">
       <h1 class="display-4 mb-4 text-center section-header">Unsere Galerie</h1>
       <p class="lead text-center mb-5">Eindrücke von unserer Vorbereitung und der Tour selbst</p>
-      
+
       <!-- Galerie-Filter -->
       <div class="gallery-filters mb-4">
         <div class="d-flex justify-content-center flex-wrap">
-          <button class="btn filter-btn mx-2 mb-2" 
+          <button class="btn filter-btn mx-2 mb-2"
                   :class="{ active: activeFilter === 'all' }"
                   @click="setFilter('all')">
             <i class="bi bi-grid-3x3"></i> Alle
           </button>
-          <button class="btn filter-btn mx-2 mb-2" 
+          <button class="btn filter-btn mx-2 mb-2"
                   :class="{ active: activeFilter === 'vorbereitung' }"
                   @click="setFilter('vorbereitung')">
             <i class="bi bi-wrench"></i> Vorbereitung
           </button>
-          <button class="btn filter-btn mx-2 mb-2" 
+          <button class="btn filter-btn mx-2 mb-2"
                   :class="{ active: activeFilter === 'tour' }"
                   @click="setFilter('tour')">
             <i class="bi bi-bicycle"></i> Tour
           </button>
-          <button class="btn filter-btn mx-2 mb-2" 
+          <button class="btn filter-btn mx-2 mb-2"
                   :class="{ active: activeFilter === 'landschaft' }"
                   @click="setFilter('landschaft')">
             <i class="bi bi-tree"></i> Landschaft
           </button>
         </div>
       </div>
-      
+
       <!-- Galerie-Grid -->
       <div class="row g-4 gallery-container">
-        <div v-for="(image, index) in filteredImages" 
-             :key="index" 
+        <div v-for="(image, index) in filteredImages"
+             :key="index"
              class="col-lg-4 col-md-6 gallery-item"
              :data-category="image.category">
           <div class="gallery-card" @click="openLightbox(index)">
@@ -50,7 +50,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- "Mehr Bilder folgen"-Karte -->
       <div class="card text-center mt-5 coming-soon-card">
         <div class="card-body py-5">
@@ -63,7 +63,7 @@
           </button>
         </div>
       </div>
-      
+
       <!-- Lightbox -->
       <div class="lightbox" v-if="lightboxOpen" @click.self="closeLightbox">
         <div class="lightbox-content">
@@ -179,7 +179,7 @@ const prevImage = () => {
 // Tastatur-Navigation für Lightbox
 const handleKeyDown = (e) => {
   if (!lightboxOpen.value) return;
-  
+
   switch (e.key) {
     case 'Escape':
       closeLightbox();
@@ -423,11 +423,11 @@ onBeforeUnmount(() => {
   .gallery-image {
     height: 200px;
   }
-  
+
   .lightbox-prev {
     left: 10px;
   }
-  
+
   .lightbox-next {
     right: 10px;
   }
