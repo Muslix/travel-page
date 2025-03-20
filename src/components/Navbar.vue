@@ -64,6 +64,52 @@
               <i class="bi bi-images me-1"></i> Galerie
             </a>
           </li>
+          <!-- Abenteuer Dropdown-Menü -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle adventure-dropdown"
+              href="#"
+              id="navbarAdventureDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              :class="{ 'active-adventure': true }"
+            >
+              <i class="bi bi-compass me-1"></i>
+              <span v-if="currentAdventure">{{ getShortTitle(currentAdventure.title) }}</span>
+              <span v-else>Abenteuer wählen</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarAdventureDropdown">
+              <li v-for="adventure in availableAdventures" :key="adventure.id">
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  :class="{ active: adventure.id === currentAdventure.id }"
+                  @click.prevent="selectAdventure(adventure.id)"
+                >
+                  <div class="adventure-item">
+                    <div class="adventure-title-row">
+                      <span class="adventure-title">
+                        <span class="text-content">{{ adventure.title }}</span>
+                      </span>
+                      <span class="badge status-badge" :class="getStatusBadgeClass(adventure.status)">
+                        {{ getStatusLabel(adventure.status) }}
+                      </span>
+                    </div>
+                    <small class="adventure-subtitle text-muted d-block">
+                      <span class="text-content">{{ adventure.subtitle }}</span>
+                    </small>
+                  </div>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item disabled" href="#">
+                  <i class="bi bi-info-circle me-2"></i>Wähle ein Abenteuer
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item">
             <a
               class="nav-link highlight-link"
@@ -118,6 +164,7 @@
 
 <script setup>
 import { ref, watch, onMounted, nextTick } from "vue";
+import { adventures, getCurrentAdventure, setCurrentAdventure } from "../data/adventures";
 
 const props = defineProps({
   currentPage: {
@@ -126,8 +173,12 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["navigate", "adventureChanged"]);
+
 const activePage = ref(props.currentPage);
 const showDonateModal = ref(false);
+const availableAdventures = ref(adventures);
+const currentAdventure = ref(getCurrentAdventure());
 
 // Aktualisiere die aktive Seite, wenn sich die Props ändern
 watch(
@@ -141,8 +192,6 @@ const navigateTo = (page) => {
   activePage.value = page;
   emit("navigate", page);
 };
-
-const emit = defineEmits(["navigate"]);
 
 // Bootstrap-Modal Referenz
 let modalInstance = null;
@@ -172,6 +221,51 @@ onMounted(() => {
     }
   });
 });
+
+// Hilfsfunktion zum Kürzen von langen Titeln
+const getShortTitle = (title) => {
+  const colonIndex = title.indexOf(':');
+  if (colonIndex > 0) {
+    return title.substring(0, colonIndex).trim();
+  }
+  return title.length > 15 ? title.substring(0, 15) + '...' : title;
+};
+
+// Hilfsfunktion zur Bestimmung der Statusklasse
+const getStatusBadgeClass = (status) => {
+  switch (status) {
+    case 'upcoming':
+      return 'bg-primary';
+    case 'active':
+      return 'bg-success';
+    case 'completed':
+      return 'bg-secondary';
+    default:
+      return 'bg-info';
+  }
+};
+
+// Hilfsfunktion zur Übersetzung des Status
+const getStatusLabel = (status) => {
+  switch (status) {
+    case 'upcoming':
+      return 'Geplant';
+    case 'active':
+      return 'Aktiv';
+    case 'completed':
+      return 'Abgeschlossen';
+    default:
+      return status;
+  }
+};
+
+// Funktion zum Auswählen eines Abenteuers
+const selectAdventure = (adventureId) => {
+  if (setCurrentAdventure(adventureId)) {
+    currentAdventure.value = getCurrentAdventure();
+    emit("adventureChanged", currentAdventure.value);
+  }
+};
 </script>
 
 <style scoped>
@@ -183,7 +277,7 @@ onMounted(() => {
   z-index: 1000; /* Stellt sicher, dass die Navbar über anderen Elementen liegt */
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+  overflow: visible; /* Wichtig: Erlaubt dem Dropdown, über die Navbar hinauszuragen */
 }
 
 .navbar > .container {
@@ -253,6 +347,116 @@ onMounted(() => {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Abenteuer-Dropdown-Styling */
+.adventure-dropdown {
+  position: relative;
+  border-radius: var(--radius-pill);
+  background-color: rgba(52, 152, 219, 0.1);
+  font-weight: 600;
+  z-index: 1000; /* Stellt sicher, dass das Dropdown über anderen Elementen liegt */
+}
+
+.active-adventure {
+  color: var(--primary-color);
+  z-index: 1000;
+}
+
+/* Fix für das Dropdown-Menü, damit es über andere Elemente hinausragt */
+.navbar-nav {
+  overflow: visible !important; /* Verhindert, dass die Navbar scrollbar wird */
+}
+
+.nav-item.dropdown {
+  position: relative; /* Immer relative */
+  overflow: visible !important; /* Erlaubt dem Dropdown, außerhalb zu erscheinen */
+}
+
+/* Dropdown-Menü richtig positionieren */
+.dropdown-menu {
+  position: absolute !important; /* Immer absolute, um außerhalb der Navbar zu fließen */
+  border-radius: var(--radius-md);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  min-width: 300px; /* Etwas breiter für mehr Text */
+  max-width: 350px; /* Maximale Breite begrenzen */
+  z-index: 1050; /* Höherer z-index als die Navbar */
+  max-height: 80vh; /* Begrenzt die Höhe auf 80% der Viewport-Höhe */
+  overflow-y: auto; /* Ermöglicht vertikales Scrollen, wenn das Menü zu groß ist */
+  overflow-x: hidden; /* Verhindert horizontales Scrollen */
+}
+
+/* Verbessertes Layout für Adventure-Items */
+.adventure-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.adventure-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px; /* Abstand zwischen Titel und Badge */
+}
+
+/* Lauftext für zu lange Texte (Marquee-Effekt) */
+.adventure-title {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.adventure-title:hover .text-content {
+  animation: marqueeTitleEffect 8s linear infinite;
+  white-space: nowrap;
+}
+
+.adventure-subtitle {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.adventure-subtitle:hover .text-content {
+  animation: marqueeSubtitleEffect 10s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes marqueeTitleEffect {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% + 150px)); }
+}
+
+@keyframes marqueeSubtitleEffect {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% + 150px)); }
+}
+
+.text-content {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.2s ease;
+  padding-right: 20px; /* Etwas Abstand am Ende des Textes */
+}
+
+.status-badge {
+  flex-shrink: 0; /* Verhindert, dass der Badge schrumpft */
+  font-size: 0.7rem;
+  padding: 0.25em 0.6em;
+  white-space: nowrap;
+}
+
+.dropdown-item {
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  transition: all 0.2s;
+  z-index: 1000;
+  white-space: normal; /* Erlaubt Text-Umbruch bei Bedarf */
+}
+
 /* Responsive Anpassungen */
 @media (max-width: 991px) {
   .navbar-collapse {
@@ -262,6 +466,9 @@ onMounted(() => {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
     width: 100%; /* Stellt sicher, dass es nicht überläuft */
+    max-height: 80vh; /* Begrenzt die Höhe auf 80% der Viewport-Höhe */
+    overflow-y: auto; /* Ermöglicht vertikales Scrollen, wenn das Menü zu groß ist */
+    overflow-x: hidden; /* Verhindert horizontales Scrollen */
   }
 
   .nav-link {
@@ -271,5 +478,22 @@ onMounted(() => {
   .highlight-link {
     margin-top: 10px;
   }
+
+  .dropdown-menu {
+    position: static !important; /* Im mobilen Layout als statisches Element */
+    float: none; /* Verhindert, dass das Dropdown floating ist */
+    width: 100%; /* Volle Breite im mobilen Menü */
+    border: none;
+    box-shadow: none;
+    padding-left: 1rem;
+    max-height: none; /* Kein Höhenlimit auf Mobilgeräten */
+    overflow-y: visible; /* Kein Scrollen innerhalb des Dropdowns auf Mobilgeräten */
+  }
+}
+
+/* Stellt sicher, dass das Dropdown-Menü nicht abgeschnitten wird */
+:deep(.dropdown-menu.show) {
+  display: block;
+  transform: none !important; /* Verhindert Bootstrap-Transformationen, die Probleme verursachen können */
 }
 </style>

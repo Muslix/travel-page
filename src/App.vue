@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, provide } from 'vue';
 import Navbar from './components/Navbar.vue';
 import HomePage from './components/HomePage.vue';
 import EquipmentPage from './components/EquipmentPage.vue';
 import RoutePage from './components/RoutePage.vue';
 import GalleryPage from './components/GalleryPage.vue';
+import { getCurrentAdventure } from './data/adventures';
 
 // Loading state
 const isLoading = ref(true);
@@ -12,11 +13,30 @@ const isLoading = ref(true);
 // Aktuell angezeigte Seite
 const currentPage = ref('home');
 
+// Aktuelles Abenteuer
+const currentAdventure = ref(getCurrentAdventure());
+
 // Navigation wechseln
 function navigateTo(page) {
   currentPage.value = page;
   // Scrollen zum Seitenanfang bei Seitenwechsel
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Funktion zum Aktualisieren des aktuellen Abenteuers
+function updateCurrentAdventure(adventure) {
+  currentAdventure.value = adventure;
+
+  // Die Komponenten durch einen key-Wechsel aktualisieren
+  reloadComponents();
+}
+
+// Eine eindeutige ID für den Komponenten-Key
+const componentKey = ref(0);
+
+// Funktion zum Neuladen der Komponenten
+function reloadComponents() {
+  componentKey.value++;
 }
 
 // Make sure all styles are loaded before displaying content
@@ -26,6 +46,9 @@ onMounted(() => {
     isLoading.value = false;
   }, 100);
 });
+
+// Das aktuelle Abenteuer für alle Komponenten bereitstellen
+provide('currentAdventure', currentAdventure);
 </script>
 
 <template>
@@ -37,7 +60,7 @@ onMounted(() => {
     </div>
 
     <template v-else>
-      <Navbar @navigate="navigateTo" :currentPage="currentPage" />
+      <Navbar @navigate="navigateTo" @adventureChanged="updateCurrentAdventure" :currentPage="currentPage" />
 
       <main class="main-content">
         <transition name="fade" mode="out-in">
@@ -47,17 +70,20 @@ onMounted(() => {
                  currentPage === 'route' ? RoutePage :
                  currentPage === 'gallery' ? GalleryPage : null"
             @navigate="navigateTo"
-            :key="currentPage"
+            :key="`${currentPage}-${componentKey}`"
           />
         </transition>
       </main>
 
       <footer class="bg-dark text-white py-4 mt-5">
+        <!-- Footer-Inhalt aktualisieren, um das aktuelle Abenteuer anzuzeigen -->
         <div class="container">
           <div class="row">
             <div class="col-md-5">
               <h5 class="mb-3">RAMAdventure</h5>
-              <p class="mb-3">Eine epische Radtour Ende Mai 2025 - Folge unserem Abenteuer!</p>
+              <p class="mb-3">
+                {{ currentAdventure.title }} - {{ currentAdventure.subtitle }}
+              </p>
               <div class="social-icons">
                 <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>

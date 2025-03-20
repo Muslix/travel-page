@@ -145,18 +145,132 @@ export const adventures = [
         "Unser Ziel ist es, die 630 km in etwa einer Woche zu schaffen. Dabei werden wir zelten, kochen und alle Erfahrungen hier teilen.",
     },
   },
-  // Hier können in Zukunft weitere Reisen hinzugefügt werden
-  /*
+  // Zweites Dummy-Adventure
   {
-    id: 'future-adventure-2026',
-    title: 'Zukünftige Tour 2026',
-    subtitle: 'Details werden noch bekannt gegeben',
-    startDate: '2026-06-01',
-    endDate: '2026-06-10',
-    status: 'planned',
-    // weitere Details folgen
+    id: "alpen-tour-2024",
+    title: "Alpen-Überquerung",
+    subtitle: "450km Tour durch die Alpen von München nach Venedig",
+    startDate: "2024-07-10",
+    endDate: "2024-07-17",
+    distance: 450,
+    countries: ["Deutschland", "Österreich", "Italien"],
+    participants: ["Martin", "Rafael", "Emma"],
+    status: "completed", // 'upcoming', 'active', 'completed'
+    route: {
+      start: "München",
+      end: "Venedig",
+      description:
+        "Eine spektakuläre Alpen-Überquerung mit atemberaubenden Berglandschaften, über 10.000 Höhenmetern und unvergesslichen Pässen.",
+      totalElevationUp: 10500, // Gesamte Höhenmeter bergauf
+      totalElevationDown: 11200, // Gesamte Höhenmeter bergab
+      accommodationInfo: {
+        title: "Übernachtungen",
+        description:
+          "Wir übernachten in Berghütten und kleinen Pensionen entlang der Route. In den Tälern haben wir einige gemütliche Gasthöfe ausgewählt.",
+      },
+      foodInfo: {
+        title: "Verpflegung",
+        description:
+          "Frühstück und Abendessen in den Unterkünften, tagsüber Verpflegung aus lokalen Delikatessen-Geschäften und Bergrestaurants.",
+      },
+      stages: [
+        {
+          day: 1,
+          date: "2024-07-10",
+          start: "München",
+          end: "Bad Tölz",
+          distance: 60,
+          elevation: 650,
+          highlights: ["Isar-Radweg", "Voralpenland"],
+          description:
+            "Startschuss in München und gemütlicher Einstieg durch das bayerische Voralpenland bis nach Bad Tölz.",
+        },
+        {
+          day: 2,
+          date: "2024-07-11",
+          start: "Bad Tölz",
+          end: "Achensee",
+          distance: 70,
+          elevation: 1450,
+          highlights: ["Sylvensteinsee", "Karwendelgebirge"],
+          description:
+            "Die ersten größeren Anstiege erwarten uns auf dem Weg zum wunderschönen Achensee in Tirol.",
+        },
+        {
+          day: 3,
+          date: "2024-07-12",
+          start: "Achensee",
+          end: "Innsbruck",
+          distance: 65,
+          elevation: 950,
+          highlights: ["Inn-Tal", "Nordkette"],
+          description:
+            "Abfahrt ins Inn-Tal und weiter nach Innsbruck mit seinem beeindruckenden Bergpanorama.",
+        },
+        {
+          day: 4,
+          date: "2024-07-13",
+          start: "Innsbruck",
+          end: "Sterzing",
+          distance: 75,
+          elevation: 1800,
+          highlights: ["Brennerpass", "Wipptal"],
+          description:
+            "Die Königsetappe über den historischen Brennerpass nach Italien.",
+        },
+        {
+          day: 5,
+          date: "2024-07-14",
+          start: "Sterzing",
+          end: "Brixen",
+          distance: 45,
+          elevation: 950,
+          highlights: ["Eisack-Tal", "Pustertal"],
+          description:
+            "Ein vergleichsweise entspannter Tag durch das malerische Eisack-Tal.",
+        },
+        {
+          day: 6,
+          date: "2024-07-15",
+          start: "Brixen",
+          end: "Cortina d'Ampezzo",
+          distance: 80,
+          elevation: 2200,
+          highlights: ["Dolomiten", "Tre Cime"],
+          description:
+            "Die herausforderndste Etappe durch die majestätischen Dolomiten mit mehreren anspruchsvollen Pässen.",
+        },
+        {
+          day: 7,
+          date: "2024-07-16",
+          start: "Cortina d'Ampezzo",
+          end: "Belluno",
+          distance: 55,
+          elevation: 1100,
+          highlights: ["Cadore-Tal", "Piave-Tal"],
+          description:
+            "Bergab geht es durch spektakuläre Schluchten Richtung Po-Ebene.",
+        },
+        {
+          day: 8,
+          date: "2024-07-17",
+          start: "Belluno",
+          end: "Venedig",
+          distance: 100,
+          elevation: 400,
+          highlights: ["Venetische Ebene", "Lagune von Venedig"],
+          description:
+            "Die Schlussetappe führt durch die Venetische Ebene bis zur berühmten Lagunenstadt Venedig.",
+        },
+      ]
+    },
+    about: {
+      description:
+        "Diese Tour führt uns über die Alpen von München nach Venedig. Eine unvergessliche Reise durch drei Länder mit atemberaubenden Berglandschaften und kulturellen Highlights.",
+      projectGoals:
+        "Wir nehmen die Herausforderung an, die Alpen mit dem Fahrrad zu überqueren und dabei über 10.000 Höhenmeter zu bewältigen. Ein unvergessliches Abenteuer erwartet uns!",
+    },
   }
-  */
 ];
 
 // Equipment-Daten in einer separaten Struktur
@@ -411,17 +525,300 @@ export const equipmentData = {
       ],
     },
   },
+  // Equipment-Daten für das zweite Adventure
+  "alpen-tour-2024": {
+    // Kategorien für die Equipment-Listen
+    categories: {
+      bags: { title: "Bikepacking-Taschen", icon: "bi-bag" },
+      sleep: { title: "Schlafen & Komfort", icon: "bi-moon" },
+      clothing: {
+        title: "Kleidung & Wetterschutz",
+        icon: "bi-thermometer-half",
+      },
+      cooking: { title: "Kochen & Essen", icon: "bi-fire" },
+      safety: { title: "Sicherheit & Notfälle", icon: "bi-lightbulb" },
+    },
+
+    // Martins Ausrüstung
+    martin: {
+      profile: {
+        name: "Martin",
+        type: "Bergradler",
+        description:
+          "Der erfahrene Bergradler mit spezialisierten Komponenten für steile Anstiege und technische Abfahrten. Martin setzt auf eine ausgewogene Balance zwischen Gewicht und Stabilität.",
+        tags: ["Bergfest", "Technik-Fan", "Ausdauernd"],
+        philosophy: {
+          text: "In den Bergen zählt jedes Gramm, aber auch die Zuverlässigkeit der Ausrüstung. Ich habe für diese Tour ein spezielles Setup mit verbesserten Berggängen und robusten Reifen zusammengestellt.",
+          motto: "Der Berg ruft - und ich antworte!",
+        },
+      },
+      mainEquipment: {
+        bike: {
+          title: "Scott Addict Gravel 10",
+          description:
+            "Leichtes Carbon-Gravelbike mit breiter Übersetzung und speziellen Berggängen für die Alpenetappen.",
+          image: "/bike-placeholder.jpg",
+        },
+        tent: {
+          title: "MSR Hubba NX",
+          description:
+            "Ultraleichtes Einpersonenzelt mit ausgezeichneter Stabilität bei Bergwetter.",
+          image: "/tent-placeholder.jpg",
+        },
+      },
+      bags: [
+        {
+          title: "Apidura Expedition Handlebar Pack",
+          description: "12L Lenkertasche, wasserdicht",
+          icon: "bi-bag",
+        },
+        {
+          title: "Apidura Expedition Saddle Pack",
+          description: "17L Satteltasche, wasserdicht",
+          icon: "bi-bag",
+        },
+        {
+          title: "Apidura Expedition Frame Pack",
+          description: "4.5L Rahmentasche, wasserdicht",
+          icon: "bi-bag",
+        },
+        {
+          title: "Apidura Food Pouch",
+          description: "0.8L Oberrohrtasche für Snacks",
+          icon: "bi-bag",
+        }
+      ],
+      sleep: [
+        {
+          title: "Therm-a-Rest NeoAir XLite",
+          description: "Ultraleichte Isomatte mit R-Wert 4.2",
+          icon: "bi-moon",
+        },
+        {
+          title: "Western Mountaineering UltraLite",
+          description: "Daunen-Schlafsack für Temperaturen bis 0°C",
+          icon: "bi-hospital",
+        }
+      ],
+      clothing: [
+        {
+          title: "Gore Wear C7 Gore-Tex Shakedry",
+          description: "Ultraleichte Regenjacke",
+          icon: "bi-umbrella",
+        },
+        {
+          title: "Castelli Perfetto RoS",
+          description: "Winddichte Radtrikotjacke",
+          icon: "bi-wind",
+        },
+        {
+          title: "Assos T.Rally Cargo Shorts",
+          description: "Gepolsterte Mountainbike-Shorts mit Taschen",
+          icon: "bi-bag-check",
+        }
+      ],
+      cooking: [
+        {
+          title: "MSR PocketRocket Deluxe",
+          description: "Leichter Gaskocher mit Piezozündung",
+          icon: "bi-fire",
+        },
+        {
+          title: "Toaks Titanium 750ml Pot",
+          description: "Ultraleichter Titanium-Kochtopf",
+          icon: "bi-cup",
+        }
+      ],
+      safety: [
+        {
+          title: "Petzl Actik Core",
+          description: "Wiederaufladbare Stirnlampe, 450 Lumen",
+          icon: "bi-lightbulb",
+        },
+        {
+          title: "Garmin inReach Mini",
+          description: "Satellitengerät für Notfälle",
+          icon: "bi-broadcast",
+        }
+      ]
+    },
+
+    // Rafaels Ausrüstung
+    rafael: {
+      profile: {
+        name: "Rafael",
+        type: "Alpen-Speedster",
+        description:
+          "Der Gewichtsoptimierer, der auf ultraleichtes Equipment und schnelles Vorankommen setzt, ohne auf notwendigen Komfort zu verzichten.",
+        tags: ["Ultraleicht", "Minimalist", "Geschwindigkeit"],
+        philosophy: {
+          text: "Bei einer Alpenüberquerung kämpft man um jedes Gramm am Berg. Ich habe mein Setup auf absolute Gewichtsoptimierung ausgelegt, ohne lebenswichtige Ausrüstung zu kompromittieren.",
+          motto: "Leicht und schnell erobert jeden Gipfel.",
+        },
+      },
+      mainEquipment: {
+        bike: {
+          title: "Cervelo Aspero-5",
+          description:
+            "Ultra-leichtes Carbon-Gravelbike mit elektronischer Schaltung und optimaler Steigfähigkeit.",
+          image: "/bike-placeholder.jpg",
+        },
+        tent: {
+          title: "Zpacks Plex Solo",
+          description:
+            "Ultraleichtes DCF-Zelt, unter 500 Gramm mit hervorragendem Wetterschutz.",
+          image: "/tent-placeholder.jpg",
+        },
+      },
+      otherEquipment: [
+        {
+          title: "Revelate Designs Terrapin System",
+          description: "Ultraleichtes Packset mit nur 320g",
+          icon: "bi-bag",
+        },
+        {
+          title: "Enlightened Equipment Enigma Quilt",
+          description: "850FP Daunendecke, nur 480g",
+          icon: "bi-moon",
+        },
+        {
+          title: "Thermarest NeoAir Uberlite",
+          description: "Leichteste Isomatte auf dem Markt, 250g",
+          icon: "bi-broadcast",
+        },
+        {
+          title: "BRS-3000T Titanium Stove",
+          description: "Ultraleichter Gaskocher, 25g",
+          icon: "bi-fire",
+        },
+        {
+          title: "Leki Carbon Trail Running Poles",
+          description: "Zusammenfaltbare Carbonstöcke für steile Passagen",
+          icon: "bi-rulers",
+        }
+      ]
+    },
+
+    // Emma als zusätzliche Person
+    emma: {
+      profile: {
+        name: "Emma",
+        type: "Alpine Allrounderin",
+        description:
+          "Die erfahrene Alpencrosserin mit dem perfekten Gleichgewicht zwischen Komfort und Gewichtsersparnis. Emma kennt die Routen und weiß genau, was unterwegs benötigt wird.",
+        tags: ["Erfahren", "Organisiert", "Vielseitig"],
+        philosophy: {
+          text: "Bei einer Alpenüberquerung ist Erfahrung Gold wert. Meine Ausrüstung ist auf alpine Wetterbedingungen optimiert und bietet die richtige Balance zwischen Gewicht und Funktionalität.",
+          motto: "Gut vorbereitet ist halb gewonnen.",
+        },
+      },
+      mainEquipment: {
+        bike: {
+          title: "Specialized Diverge Expert Carbon",
+          description:
+            "Vielseitiges Gravelbike mit Future Shock 2.0 Federung für ruppige Alpenwege.",
+          image: "/bike-placeholder.jpg",
+        },
+        tent: {
+          title: "Big Agnes Copper Spur HV UL2",
+          description:
+            "Leichtes Zweimannzelt mit hervorragendem Verhältnis von Gewicht zu Raum.",
+          image: "/tent-placeholder.jpg",
+        },
+      },
+      otherEquipment: [
+        {
+          title: "Ortlieb Gravel-Pack",
+          description: "Wasserdichte Front-Taschen für zusätzlichen Stauraum",
+          icon: "bi-bag",
+        },
+        {
+          title: "Garmin Edge 1040 Solar",
+          description: "GPS-Navigation mit Solar-Ladefunktion",
+          icon: "bi-map",
+        },
+        {
+          title: "Mountain Hardwear Ghost Whisperer",
+          description: "Ultraleichte Daunenjacke für kalte Passabfahrten",
+          icon: "bi-thermometer-snow",
+        },
+        {
+          title: "Alpkit Kraku & MytiPot 900",
+          description: "Kompaktes Kochset aus Titanium",
+          icon: "bi-fire",
+        },
+        {
+          title: "Patagonia Capilene Air Hoody",
+          description: "Atmungsaktive Merino-Baselayer für alpine Temperaturen",
+          icon: "bi-layers",
+        }
+      ]
+    },
+
+    // Gemeinsame Ausrüstung
+    shared: {
+      intro: {
+        title: "Unsere gemeinsame Ausrüstung für die Alpen",
+        description:
+          "Bei einer Alpenüberquerung zählt jedes Gramm. Diese Ausrüstungsgegenstände teilen wir uns, um Gewicht zu sparen und trotzdem für alle Situationen gewappnet zu sein.",
+      },
+      philosophy: {
+        title: "Unsere Alpen-Philosophie",
+        text: "In den Bergen kann sich das Wetter schnell ändern. Wir setzen auf zuverlässige Ausrüstung, die auch unter widrigen Bedingungen funktioniert, und teilen uns wichtige Gegenstände, um das Gewicht zu reduzieren.",
+      },
+      items: [
+        {
+          title: "MSR Trailshot Wasserfilter",
+          description:
+            "Kompakter Filter für frisches Wasser aus alpinen Bächen und Seen.",
+          icon: "bi-droplet",
+        },
+        {
+          title: "Topeak Mountain Survival Gear",
+          description:
+            "Umfassendes Werkzeugset mit allem Nötigen für Reparaturen in der Wildnis.",
+          icon: "bi-tools",
+        },
+        {
+          title: "AlpineAid Pro",
+          description:
+            "Spezielles Erste-Hilfe-Set für alpinen Einsatz mit Höhenkrankheitsmedikamenten.",
+          icon: "bi-bandaid",
+        },
+        {
+          title: "Scott Alpine Pass Karten",
+          description:
+            "Detaillierte Wasserfeste Karten der Alpenpässe als Backup zur digitalen Navigation.",
+          icon: "bi-map",
+        },
+        {
+          title: "Black Diamond Alpine Carbon Cork",
+          description:
+            "Teleskopstöcke für steile Anstiege und technische Abfahrten.",
+          icon: "bi-rulers",
+        }
+      ]
+    }
+  }
 };
 
-// Hilfsfunktion zum Abrufen des aktuellen Abenteuers
+// Eine neue Funktion zum Ändern des aktuellen Abenteuers
+let _currentAdventureId = currentAdventureId;
+
+export function setCurrentAdventure(adventureId) {
+  if (adventures.some(adv => adv.id === adventureId)) {
+    _currentAdventureId = adventureId;
+    return true;
+  }
+  return false;
+}
+
 export function getCurrentAdventure() {
-  return (
-    adventures.find((adventure) => adventure.id === currentAdventureId) ||
-    adventures[0]
-  );
+  const adventure = adventures.find((adventure) => adventure.id === _currentAdventureId);
+  return adventure || adventures[0];
 }
 
 // Hilfsfunktion zum Abrufen der Equipment-Daten für ein bestimmtes Abenteuer
-export function getEquipmentForAdventure(adventureId = currentAdventureId) {
+export function getEquipmentForAdventure(adventureId = _currentAdventureId) {
   return equipmentData[adventureId] || {};
 }
