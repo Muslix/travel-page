@@ -3,13 +3,24 @@
     <!-- Modernes Hero Banner mit verbessertem Parallax-Effekt -->
     <div class="hero-parallax">
       <div class="parallax-content">
-        <h1 class="display-2 mb-4 fw-bold text-shadow">600km Radtour Challenge</h1>
-        <p class="lead mb-4 fw-light fs-3">Das Abenteuer beginnt Ende Mai 2025!</p>
+        <h1 class="display-2 mb-4 fw-bold text-shadow">
+          {{ currentAdventure.distance }}km Radtour Challenge
+        </h1>
+        <p class="lead mb-4 fw-light fs-3">
+          Das Abenteuer beginnt am
+          {{ formatReadableDate(currentAdventure.startDate) }}!
+        </p>
         <div class="hero-buttons">
-          <button class="btn btn-primary btn-lg me-2" @click="$emit('navigate', 'equipment')">
+          <button
+            class="btn btn-primary btn-lg me-2"
+            @click="$emit('navigate', 'equipment')"
+          >
             <i class="bi bi-bicycle me-2"></i>Ausrüstung entdecken
           </button>
-          <button class="btn btn-outline-light btn-lg" @click="$emit('navigate', 'route')">
+          <button
+            class="btn btn-outline-light btn-lg"
+            @click="$emit('navigate', 'route')"
+          >
             <i class="bi bi-map me-2"></i>Route ansehen
           </button>
         </div>
@@ -30,19 +41,19 @@
         <h2 class="text-center mb-4">Unser Abenteuer startet in</h2>
         <div class="countdown-timer" id="countdown">
           <div class="countdown-item">
-            <div class="countdown-value" id="countdown-days">--</div>
+            <div class="countdown-value">{{ countdownValues.days }}</div>
             <div class="countdown-label">Tage</div>
           </div>
           <div class="countdown-item">
-            <div class="countdown-value" id="countdown-hours">--</div>
+            <div class="countdown-value">{{ countdownValues.hours }}</div>
             <div class="countdown-label">Stunden</div>
           </div>
           <div class="countdown-item">
-            <div class="countdown-value" id="countdown-minutes">--</div>
+            <div class="countdown-value">{{ countdownValues.minutes }}</div>
             <div class="countdown-label">Minuten</div>
           </div>
           <div class="countdown-item">
-            <div class="countdown-value" id="countdown-seconds">--</div>
+            <div class="countdown-value">{{ countdownValues.seconds }}</div>
             <div class="countdown-label">Sekunden</div>
           </div>
         </div>
@@ -61,11 +72,7 @@
               </div>
               <h2 class="card-title">Über uns</h2>
               <p class="card-text">
-                Wir sind zwei Freunde, die sich der Herausforderung stellen, 600 km mit dem Fahrrad zurückzulegen.
-                Unsere Reise wird uns durch malerische Landschaften führen und wir werden viele Abenteuer erleben!
-              </p>
-              <p class="card-text">
-                Diese Website dokumentiert unsere Vorbereitung und später auch die Tour selbst.
+                {{ currentAdventure.about.description }}
               </p>
             </div>
           </div>
@@ -79,11 +86,7 @@
               </div>
               <h2 class="card-title">Das Projekt</h2>
               <p class="card-text">
-                Unser Ziel ist es, die 600 km in etwa einer Woche zu schaffen. Dabei werden wir zelten, kochen
-                und alle Erfahrungen hier teilen.
-              </p>
-              <p class="card-text">
-                Folge unserem Abenteuer und entdecke mit uns die Freude am Radfahren und der Natur!
+                {{ currentAdventure.about.projectGoals }}
               </p>
             </div>
           </div>
@@ -99,8 +102,10 @@
               <div class="feature-icon">
                 <i class="bi bi-compass"></i>
               </div>
-              <h3>600km Route</h3>
-              <p>Eine sorgfältig geplante Route durch die schönsten Landschaften</p>
+              <h3>{{ currentAdventure.distance }}km Route</h3>
+              <p>
+                Eine sorgfältig geplante Route durch die schönsten Landschaften
+              </p>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
@@ -134,14 +139,26 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <h2 class="mb-3">Bleib auf dem Laufenden!</h2>
-                <p>Abonniere unseren Newsletter und erhalte Updates zu unserer Tour direkt in dein Postfach.</p>
+                <p>
+                  Abonniere unseren Newsletter und erhalte Updates zu unserer
+                  Tour direkt in dein Postfach.
+                </p>
               </div>
               <div class="col-md-6">
                 <div class="input-group">
-                  <input type="email" class="form-control" placeholder="Deine E-Mail-Adresse" aria-label="E-Mail">
-                  <button class="btn btn-primary" type="button">Abonnieren</button>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Deine E-Mail-Adresse"
+                    aria-label="E-Mail"
+                  />
+                  <button class="btn btn-primary" type="button">
+                    Abonnieren
+                  </button>
                 </div>
-                <small class="form-text text-muted mt-2">Wir versenden nur Updates zu dieser Tour, kein Spam!</small>
+                <small class="form-text text-muted mt-2"
+                  >Wir versenden nur Updates zu dieser Tour, kein Spam!</small
+                >
               </div>
             </div>
           </div>
@@ -152,47 +169,58 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from "vue";
+import { getCurrentAdventure } from "../data/adventures";
+import { formatReadableDate, calculateTimeUntil } from "../data/dateUtils";
 
-defineEmits(['navigate']);
+defineEmits(["navigate"]);
+
+// Das aktuelle Abenteuer laden
+const currentAdventure = ref(getCurrentAdventure());
+
+// Reaktive Daten für den Countdown
+const countdownValues = ref({
+  days: "--",
+  hours: "--",
+  minutes: "--",
+  seconds: "--",
+});
+
+// Variable für den Timer-Interval
+let countdownInterval = null;
 
 onMounted(() => {
   // Countdown-Timer Funktion
   const countdownTimer = () => {
-    // Target date: May 25, 2025
-    const targetDate = new Date('May 25, 2025 00:00:00').getTime();
-
     const updateTimer = () => {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      // Berechne Tage, Stunden, Minuten und Sekunden
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Aktualisiere DOM-Elemente
-      document.getElementById('countdown-days').textContent = days;
-      document.getElementById('countdown-hours').textContent = hours;
-      document.getElementById('countdown-minutes').textContent = minutes;
-      document.getElementById('countdown-seconds').textContent = seconds;
+      // Aktuelle Countdown-Werte berechnen
+      const timeValues = calculateTimeUntil(currentAdventure.value.startDate);
+      countdownValues.value = timeValues;
     };
 
     // Timer sofort ausführen und dann alle Sekunde aktualisieren
     updateTimer();
-    setInterval(updateTimer, 1000);
+    countdownInterval = setInterval(updateTimer, 1000);
   };
 
   // Verbesserter Parallax-Effekt für Hero-Banner
   const parallaxEffect = () => {
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const heroElement = document.querySelector('.hero-parallax');
+      const heroElement = document.querySelector(".hero-parallax");
       if (heroElement) {
         // Sanfterer Parallax-Effekt
-        heroElement.style.backgroundPositionY = `calc(50% + ${scrollPosition * 0.3}px)`;
+        heroElement.style.backgroundPositionY = `calc(50% + ${
+          scrollPosition * 0.3
+        }px)`;
       }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Event-Listener bereinigen wenn Component unmounted wird
+    onUnmounted(() => {
+      window.removeEventListener("scroll", handleScroll);
     });
   };
 
@@ -200,12 +228,21 @@ onMounted(() => {
   countdownTimer();
   parallaxEffect();
 });
+
+// Timer bereinigen, wenn die Komponente unmounted wird
+onUnmounted(() => {
+  if (countdownInterval) {
+    clearInterval(countdownInterval);
+    countdownInterval = null;
+  }
+});
 </script>
 
 <style scoped>
 /* Hero Banner mit Parallax */
 .hero-parallax {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('/hero-bike.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+    url("/hero-bike.jpg");
   background-size: cover;
   background-position: center 50%;
   height: 100vh;
@@ -225,7 +262,7 @@ onMounted(() => {
 }
 
 .text-shadow {
-  text-shadow: 2px 4px 8px rgba(0,0,0,0.6);
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
 }
 
 /* Vereinheitlichte Karten-Stile */
@@ -248,7 +285,7 @@ onMounted(() => {
 
 .feature-item:hover {
   background-color: white;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   transform: translateY(-5px);
 }
 
@@ -343,7 +380,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   margin: 0 auto 10px;
-  box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
 }
 
 .countdown-label {
@@ -361,7 +398,7 @@ onMounted(() => {
 .newsletter-card {
   border-radius: 15px;
   background-image: linear-gradient(to right, #f8f9fa, #e9ecef);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Anpassungen */

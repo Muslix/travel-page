@@ -1,7 +1,9 @@
 <template>
   <div class="route">
     <div class="container py-5">
-      <h1 class="display-4 mb-5 text-center">RAMAdventure: Unsere 630km Route</h1>
+      <h1 class="display-4 mb-5 text-center">
+        {{ currentAdventure.title }}: Unsere {{ currentAdventure.distance }}km Route
+      </h1>
 
       <div class="row mb-5">
         <div class="col-lg-8 mb-4">
@@ -15,8 +17,7 @@
                 </div>
               </div>
               <p class="mt-3">
-                Unsere 630km Route führt durch malerische Landschaften, kleine Dörfer und entlang schöner Flüsse von Mainz nach Calais.
-                Die Route umfasst etwa 5000 Höhenmeter bergauf und 5000 Höhenmeter bergab über die gesamte Strecke.
+                {{ currentAdventure.route.description }}
               </p>
             </div>
           </div>
@@ -29,31 +30,31 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Gesamtdistanz:</span>
-                  <strong>630 km</strong>
+                  <strong>{{ currentAdventure.distance }} km</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Geplante Dauer:</span>
-                  <strong>6 Tage</strong>
+                  <strong>{{ adventureDays }} Tage</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Höhenmeter aufwärts:</span>
-                  <strong>ca. 5000 m</strong>
+                  <strong>{{ currentAdventure.route.totalElevationUp }} m</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Höhenmeter abwärts:</span>
-                  <strong>ca. 5000 m</strong>
+                  <strong>{{ currentAdventure.route.totalElevationDown }} m</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Durchschnitt pro Tag:</span>
-                  <strong>~105 km</strong>
+                  <strong>~{{ Math.round(currentAdventure.distance / adventureDays) }} km</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Start:</span>
-                  <strong>Mainz</strong>
+                  <strong>{{ currentAdventure.route.start }}</strong>
                 </li>
                 <li class="list-group-item d-flex justify-content-between">
                   <span>Ziel:</span>
-                  <strong>Calais</strong>
+                  <strong>{{ currentAdventure.route.end }}</strong>
                 </li>
               </ul>
             </div>
@@ -76,60 +77,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Tag 1</td>
-                <td>Mainz</td>
-                <td>Trier</td>
-                <td>105 km</td>
-                <td>850 m</td>
-                <td>Entlang des Rheins und der Mosel</td>
-              </tr>
-              <tr>
-                <td>Tag 2</td>
-                <td>Trier</td>
-                <td>Luxemburg</td>
-                <td>105 km</td>
-                <td>950 m</td>
-                <td>Grenzübergang nach Luxemburg</td>
-              </tr>
-              <tr>
-                <td>Tag 3</td>
-                <td>Luxemburg</td>
-                <td>Namur</td>
-                <td>110 km</td>
-                <td>800 m</td>
-                <td>Durch die belgischen Ardennen</td>
-              </tr>
-              <tr>
-                <td>Tag 4</td>
-                <td>Namur</td>
-                <td>Brüssel</td>
-                <td>100 km</td>
-                <td>600 m</td>
-                <td>Entlang der Maas</td>
-              </tr>
-              <tr>
-                <td>Tag 5</td>
-                <td>Brüssel</td>
-                <td>Lille</td>
-                <td>105 km</td>
-                <td>800 m</td>
-                <td>Durch flämische Landschaften</td>
-              </tr>
-              <tr>
-                <td>Tag 6</td>
-                <td>Lille</td>
-                <td>Calais</td>
-                <td>105 km</td>
-                <td>1000 m</td>
-                <td>Finale Etappe mit Blick aufs Meer</td>
+              <tr v-for="stage in currentAdventure.route.stages" :key="stage.day">
+                <td>Tag {{ stage.day }}</td>
+                <td>{{ stage.start }}</td>
+                <td>{{ stage.end }}</td>
+                <td>{{ stage.distance }} km</td>
+                <td>{{ stage.elevation }} m</td>
+                <td>{{ stage.description }}</td>
               </tr>
             </tbody>
             <tfoot>
               <tr class="table-info">
                 <td colspan="3"><strong>Gesamt</strong></td>
-                <td><strong>630 km</strong></td>
-                <td><strong>5000 m</strong></td>
+                <td><strong>{{ currentAdventure.distance }} km</strong></td>
+                <td><strong>ca. {{ currentAdventure.route.totalElevationUp }} m</strong></td>
                 <td></td>
               </tr>
             </tfoot>
@@ -143,10 +104,9 @@
           <div class="col-md-6">
             <div class="card mb-4">
               <div class="card-body">
-                <h3 class="h5">Übernachtungen</h3>
+                <h3 class="h5">{{ currentAdventure.route.accommodationInfo.title }}</h3>
                 <p>
-                  Wir werden hauptsächlich zelten, aber auch nach günstigen Unterkünften Ausschau halten.
-                  Falls das Wetter nicht mitspielt, haben wir einen Plan B mit Hostels entlang der Strecke.
+                  {{ currentAdventure.route.accommodationInfo.description }}
                 </p>
               </div>
             </div>
@@ -154,10 +114,9 @@
           <div class="col-md-6">
             <div class="card mb-4">
               <div class="card-body">
-                <h3 class="h5">Verpflegung</h3>
+                <h3 class="h5">{{ currentAdventure.route.foodInfo.title }}</h3>
                 <p>
-                  Wir werden unterwegs einkaufen und selbst kochen. In größeren Ortschaften planen wir,
-                  lokale Spezialitäten zu probieren.
+                  {{ currentAdventure.route.foodInfo.description }}
                 </p>
               </div>
             </div>
@@ -166,14 +125,34 @@
       </section>
 
       <div class="text-center mt-5">
-        <button class="btn btn-primary" @click="$emit('navigate', 'home')">Zurück zur Startseite</button>
+        <button class="btn btn-primary me-2" @click="$emit('navigate', 'equipment')">
+          <i class="bi bi-bicycle me-2"></i>Unsere Ausrüstung
+        </button>
+        <button class="btn btn-outline-primary" @click="$emit('navigate', 'home')">
+          <i class="bi bi-house me-2"></i>Zurück zur Startseite
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-defineEmits(['navigate']);
+import { ref, computed } from 'vue';
+import { getCurrentAdventure } from '../data/adventures';
+import { calculateDays } from '../data/dateUtils';
+
+defineEmits(["navigate"]);
+
+// Aktuelles Abenteuer laden
+const currentAdventure = ref(getCurrentAdventure());
+
+// Berechne die Anzahl der Tage für das aktuelle Abenteuer
+const adventureDays = computed(() => {
+  return calculateDays(
+    currentAdventure.value.startDate,
+    currentAdventure.value.endDate
+  );
+});
 </script>
 
 <style scoped>
@@ -189,7 +168,7 @@ defineEmits(['navigate']);
 }
 
 .map-overlay {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   color: #495057;
   padding: 15px 30px;
   border-radius: 5px;
@@ -202,7 +181,7 @@ h2 {
 }
 
 h2:after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -212,7 +191,7 @@ h2:after {
 }
 
 .table {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .table thead th {

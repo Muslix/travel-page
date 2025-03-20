@@ -3,29 +3,51 @@
     <div class="container py-5">
       <!-- Hier konsistente Klassen für Überschriften -->
       <h1 class="section-title mb-4">Unsere Galerie</h1>
-      <p class="lead text-center mb-5">Eindrücke von unserer Vorbereitung und der Tour selbst</p>
+      <p class="lead text-center mb-5">
+        Eindrücke von unserer Vorbereitung und der Tour selbst
+      </p>
 
       <!-- Galerie-Filter mit konsistenten Button-Stilen -->
       <div class="gallery-filters mb-4">
         <div class="d-flex justify-content-center flex-wrap">
-          <button class="btn mx-2 mb-2"
-                  :class="activeFilter === 'all' ? 'btn-primary' : 'btn-outline-secondary'"
-                  @click="setFilter('all')">
+          <button
+            class="btn mx-2 mb-2"
+            :class="
+              activeFilter === 'all' ? 'btn-primary' : 'btn-outline-secondary'
+            "
+            @click="setFilter('all')"
+          >
             <i class="bi bi-grid-3x3"></i> Alle
           </button>
-          <button class="btn mx-2 mb-2"
-                  :class="activeFilter === 'vorbereitung' ? 'btn-primary' : 'btn-outline-secondary'"
-                  @click="setFilter('vorbereitung')">
+          <button
+            class="btn mx-2 mb-2"
+            :class="
+              activeFilter === 'vorbereitung'
+                ? 'btn-primary'
+                : 'btn-outline-secondary'
+            "
+            @click="setFilter('vorbereitung')"
+          >
             <i class="bi bi-wrench"></i> Vorbereitung
           </button>
-          <button class="btn mx-2 mb-2"
-                  :class="activeFilter === 'tour' ? 'btn-primary' : 'btn-outline-secondary'"
-                  @click="setFilter('tour')">
+          <button
+            class="btn mx-2 mb-2"
+            :class="
+              activeFilter === 'tour' ? 'btn-primary' : 'btn-outline-secondary'
+            "
+            @click="setFilter('tour')"
+          >
             <i class="bi bi-bicycle"></i> Tour
           </button>
-          <button class="btn mx-2 mb-2"
-                  :class="activeFilter === 'landschaft' ? 'btn-primary' : 'btn-outline-secondary'"
-                  @click="setFilter('landschaft')">
+          <button
+            class="btn mx-2 mb-2"
+            :class="
+              activeFilter === 'landschaft'
+                ? 'btn-primary'
+                : 'btn-outline-secondary'
+            "
+            @click="setFilter('landschaft')"
+          >
             <i class="bi bi-tree"></i> Landschaft
           </button>
         </div>
@@ -33,13 +55,15 @@
 
       <!-- Angepasstes Galerie-Grid mit voller Breite -->
       <div class="row g-4 gallery-container w-100 m-0">
-        <div v-for="(image, index) in filteredImages"
-             :key="index"
-             class="col-lg-4 col-md-6 gallery-item"
-             :data-category="image.category">
+        <div
+          v-for="(image, index) in filteredImages"
+          :key="index"
+          class="col-lg-4 col-md-6 gallery-item"
+          :data-category="image.category"
+        >
           <div class="unified-card gallery-card" @click="openLightbox(index)">
             <div class="gallery-image">
-              <img :src="image.url" :alt="image.title" class="img-fluid">
+              <img :src="image.url" :alt="image.title" class="img-fluid" />
               <div class="gallery-overlay">
                 <div class="gallery-info">
                   <h5>{{ image.title }}</h5>
@@ -57,9 +81,16 @@
         <div class="card-body py-5">
           <i class="bi bi-camera display-1 mb-3"></i>
           <h3 class="card-title">Mehr Bilder folgen bald!</h3>
-          <p class="card-text">Während unserer Tour werden wir regelmäßig neue Fotos hochladen.</p>
-          <p class="card-text">Schau einfach wieder vorbei oder abonniere unseren Newsletter.</p>
-          <button class="btn btn-primary mt-3" @click="$emit('navigate', 'home')">
+          <p class="card-text">
+            Während unserer Tour werden wir regelmäßig neue Fotos hochladen.
+          </p>
+          <p class="card-text">
+            Schau einfach wieder vorbei oder abonniere unseren Newsletter.
+          </p>
+          <button
+            class="btn btn-primary mt-3"
+            @click="$emit('navigate', 'home')"
+          >
             Zurück zur Startseite
           </button>
         </div>
@@ -73,79 +104,82 @@
   </div>
 </template>
 
-
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 
-defineEmits(['navigate']);
+defineEmits(["navigate"]);
 
 // Beispielbilder (später mit echten Bildern ersetzen)
 const galleryImages = ref([
   {
-    url: '/bike-placeholder.jpg',
-    title: 'Mein Fahrrad',
-    description: 'Vorbereitung für die 600km Tour',
-    category: 'vorbereitung'
+    url: "/bike-placeholder.jpg",
+    title: "Mein Fahrrad",
+    description: "Vorbereitung für die 600km Tour",
+    category: "vorbereitung",
   },
   {
-    url: '/tent-placeholder.jpg',
-    title: 'Unser Zelt',
-    description: 'Leicht und kompakt für die Reise',
-    category: 'vorbereitung'
+    url: "/tent-placeholder.jpg",
+    title: "Unser Zelt",
+    description: "Leicht und kompakt für die Reise",
+    category: "vorbereitung",
   },
   {
-    url: '/cooking-placeholder.jpg',
-    title: 'Koch-Equipment',
-    description: 'Für warme Mahlzeiten unterwegs',
-    category: 'vorbereitung'
+    url: "/cooking-placeholder.jpg",
+    title: "Koch-Equipment",
+    description: "Für warme Mahlzeiten unterwegs",
+    category: "vorbereitung",
   },
   {
-    url: '/sleep-placeholder.jpg',
-    title: 'Schlafsack',
-    description: 'Für erholsame Nächte',
-    category: 'vorbereitung'
+    url: "/sleep-placeholder.jpg",
+    title: "Schlafsack",
+    description: "Für erholsame Nächte",
+    category: "vorbereitung",
   },
   {
-    url: '/hero-bike.jpg',
-    title: 'Die Strecke',
-    description: 'Ausblick auf die Route',
-    category: 'landschaft'
+    url: "/hero-bike.jpg",
+    title: "Die Strecke",
+    description: "Ausblick auf die Route",
+    category: "landschaft",
   },
   {
-    url: '/bike-placeholder.jpg',
-    title: 'Testfahrt',
-    description: 'Eine erste Probefahrt mit Gepäck',
-    category: 'tour'
-  }
+    url: "/bike-placeholder.jpg",
+    title: "Testfahrt",
+    description: "Eine erste Probefahrt mit Gepäck",
+    category: "tour",
+  },
 ]);
 
 // Filter-Funktionalität
-const activeFilter = ref('all');
+const activeFilter = ref("all");
 const setFilter = (filter) => {
   activeFilter.value = filter;
 };
 
 const filteredImages = computed(() => {
-  if (activeFilter.value === 'all') {
+  if (activeFilter.value === "all") {
     return galleryImages.value;
   }
-  return galleryImages.value.filter(image => image.category === activeFilter.value);
+  return galleryImages.value.filter(
+    (image) => image.category === activeFilter.value
+  );
 });
 
 // Lightbox-Funktionalität
 const lightboxOpen = ref(false);
 const currentImageIndex = ref(0);
-const lightboxImage = computed(() => filteredImages.value[currentImageIndex.value] || {});
+const lightboxImage = computed(
+  () => filteredImages.value[currentImageIndex.value] || {}
+);
 
 const openLightbox = (index) => {
   currentImageIndex.value = index;
   lightboxOpen.value = true;
-  document.body.style.overflow = 'hidden'; // Verhindert Scrollen im Hintergrund
+  document.body.style.overflow = "hidden"; // Verhindert Scrollen im Hintergrund
 };
 
 const closeLightbox = () => {
   lightboxOpen.value = false;
-  document.body.style.overflow = ''; // Stellt Scrollen wieder her
+  document.body.style.overflow = ""; // Stellt Scrollen wieder her
 };
 
 const nextImage = () => {
@@ -165,27 +199,27 @@ const handleKeyDown = (e) => {
   if (!lightboxOpen.value) return;
 
   switch (e.key) {
-    case 'Escape':
+    case "Escape":
       closeLightbox();
       break;
-    case 'ArrowRight':
+    case "ArrowRight":
       nextImage();
       break;
-    case 'ArrowLeft':
+    case "ArrowLeft":
       prevImage();
       break;
   }
 };
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener("keydown", handleKeyDown);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener("keydown", handleKeyDown);
   // Stelle sicher, dass das Scrollen wieder aktiviert wird
   if (lightboxOpen.value) {
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 });
 </script>

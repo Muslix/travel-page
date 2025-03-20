@@ -103,7 +103,7 @@ onMounted(() => {
       </footer>
 
       <!-- Cookie-Banner mit einheitlichem Design -->
-      <div class="cookie-banner" id="cookieBanner">
+      <!-- <div class="cookie-banner" id="cookieBanner">
         <div class="container">
           <div class="d-flex align-items-center justify-content-between flex-wrap">
             <p class="mb-md-0">Diese Website verwendet Cookies, um Ihr Erlebnis zu verbessern.</p>
@@ -115,7 +115,7 @@ onMounted(() => {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </template>
   </div>
 </template>
