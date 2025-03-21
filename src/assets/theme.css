@@ -138,6 +138,77 @@
   --border-color: #dee2e6;
   --border-color-light: #f8f9fa;
   --border-color-dark: #6c757d;
+  
+  /* Animation-Dauer */
+  --animation-duration-fast: 0.2s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.5s;
+}
+
+/* Standard Animationen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0) translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+  }
+}
+
+/* Utility-Klassen für Animationen */
+.fade-in {
+  animation: fadeIn var(--animation-duration-normal) ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--animation-duration-normal) ease forwards;
+}
+
+.zoom-in {
+  animation: zoomIn var(--animation-duration-normal) ease forwards;
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
 }
 
 /* Responsives Verhalten für Typografie und Abstände */

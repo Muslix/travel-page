@@ -2,6 +2,7 @@
 
 /* Import des Theming-Systems */
 @import './assets/theme.css';
+@import './assets/components.css';
 
 html {
   scroll-behavior: smooth;
