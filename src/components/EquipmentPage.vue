@@ -1,7 +1,10 @@
 <template>
   <div class="equipment page-transition">
     <div class="container py-5">
-      <h1 class="display-4 mb-5 text-center">Unsere Ausrüstung</h1>
+      <SectionTitle
+        title="Unsere Ausrüstung"
+        dividerWidth="120px"
+      />
 
       <!-- Tour Info Banner -->
       <div class="tour-info-banner mb-5 p-4 rounded">
@@ -28,12 +31,16 @@
             </div>
           </div>
           <div class="col-md-5 mt-3 mt-md-0 text-md-end">
-            <button
-              class="btn btn-outline-light"
-              @click="$emit('navigate', 'route')"
-            >
-              <i class="bi bi-map me-2"></i> Zur Routenplanung
-            </button>
+            <router-link to="/route">
+              <AppButton
+                variant="outline-light"
+              >
+                <template #icon>
+                  <i class="bi bi-map"></i>
+                </template>
+                Zur Routenplanung
+              </AppButton>
+            </router-link>
           </div>
         </div>
       </div>
@@ -101,46 +108,46 @@
             <div class="row mb-4">
               <!-- Participant profile -->
               <div class="col-md-4 mb-4">
-                <div
-                  class="equipment-profile card"
+                <AppCard
+                  :full-height="true"
+                  :elevation="3"
+                  :theme="participant === 'Rafael' ? 'accent' : 'primary'"
                   :class="{ 'rafael-profile': participant === 'Rafael' }"
                 >
-                  <div class="card-body">
-                    <div class="text-center mb-4">
-                      <i class="bi bi-person-circle profile-icon"></i>
-                      <h3 class="mt-3">
-                        {{ equipment[participant.toLowerCase()]?.profile.name }}
-                      </h3>
-                      <p class="text-muted">
-                        Radlertyp:
-                        {{ equipment[participant.toLowerCase()]?.profile.type }}
-                      </p>
-                    </div>
-                    <p>
-                      {{
-                        equipment[participant.toLowerCase()]?.profile
-                          .description
-                      }}
+                  <div class="text-center mb-4">
+                    <i class="bi bi-person-circle profile-icon"></i>
+                    <h3 class="mt-3">
+                      {{ equipment[participant.toLowerCase()]?.profile.name }}
+                    </h3>
+                    <p class="text-muted">
+                      Radlertyp:
+                      {{ equipment[participant.toLowerCase()]?.profile.type }}
                     </p>
-                    <div class="equipment-style">
-                      <div
-                        class="style-tag"
-                        v-for="(tag, tagIndex) in equipment[
-                          participant.toLowerCase()
-                        ]?.profile.tags"
-                        :key="tagIndex"
-                      >
-                        {{ tag }}
-                      </div>
+                  </div>
+                  <p>
+                    {{
+                      equipment[participant.toLowerCase()]?.profile
+                        .description
+                    }}
+                  </p>
+                  <div class="equipment-style">
+                    <div
+                      class="style-tag"
+                      v-for="(tag, tagIndex) in equipment[
+                        participant.toLowerCase()
+                      ]?.profile.tags"
+                      :key="tagIndex"
+                    >
+                      {{ tag }}
                     </div>
                   </div>
-                </div>
+                </AppCard>
               </div>
 
               <!-- Equipment details -->
               <div class="col-md-8">
-                <div class="card h-100">
-                  <div class="card-body">
+                <AppCard :full-height="true" :elevation="2">
+                  <template #header>
                     <h3 class="card-title">
                       {{
                         participant === currentAdventure.participants[0]
@@ -149,144 +156,146 @@
                       }}
                       Hauptequipment
                     </h3>
+                  </template>
 
-                    <!-- Main equipment (bike & tent) -->
-                    <div class="equipment-main mb-4">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="bike-section">
-                            <h4>
-                              <i class="bi bi-bicycle me-2"></i
-                              >{{
-                                participant === currentAdventure.participants[0]
-                                  ? "Mein"
-                                  : "Sein"
+                  <!-- Main equipment (bike & tent) -->
+                  <div class="equipment-main mb-4">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="bike-section">
+                          <h4>
+                            <i class="bi bi-bicycle me-2"></i
+                            >{{
+                              participant === currentAdventure.participants[0]
+                                ? "Mein"
+                                : "Sein"
+                            }}
+                            Fahrrad
+                          </h4>
+                          <div class="bike-details">
+                            <img
+                              :src="
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.bike.image
+                              "
+                              :alt="`${participant}s Fahrrad`"
+                              class="img-fluid rounded mb-2"
+                            />
+                            <h5>
+                              {{
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.bike.title
                               }}
-                              Fahrrad
-                            </h4>
-                            <div class="bike-details">
-                              <img
-                                :src="
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.bike.image
-                                "
-                                :alt="`${participant}s Fahrrad`"
-                                class="img-fluid rounded mb-2"
-                              />
-                              <h5>
-                                {{
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.bike.title
-                                }}
-                              </h5>
-                              <p>
-                                {{
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.bike.description
-                                }}
-                              </p>
-                            </div>
+                            </h5>
+                            <p>
+                              {{
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.bike.description
+                              }}
+                            </p>
                           </div>
                         </div>
+                      </div>
 
-                        <div class="col-md-6">
-                          <div class="tent-section">
-                            <h4>
-                              <i class="bi bi-house me-2"></i
-                              >{{
-                                participant === currentAdventure.participants[0]
-                                  ? "Mein"
-                                  : "Sein"
+                      <div class="col-md-6">
+                        <div class="tent-section">
+                          <h4>
+                            <i class="bi bi-house me-2"></i
+                            >{{
+                              participant === currentAdventure.participants[0]
+                                ? "Mein"
+                                : "Sein"
+                            }}
+                            Zelt
+                          </h4>
+                          <div class="tent-details">
+                            <img
+                              :src="
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.tent.image
+                              "
+                              :alt="`${participant}s Zelt`"
+                              class="img-fluid rounded mb-2"
+                            />
+                            <h5>
+                              {{
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.tent.title
                               }}
-                              Zelt
-                            </h4>
-                            <div class="tent-details">
-                              <img
-                                :src="
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.tent.image
-                                "
-                                :alt="`${participant}s Zelt`"
-                                class="img-fluid rounded mb-2"
-                              />
-                              <h5>
-                                {{
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.tent.title
-                                }}
-                              </h5>
-                              <p>
-                                {{
-                                  equipment[participant.toLowerCase()]
-                                    ?.mainEquipment.tent.description
-                                }}
-                              </p>
-                            </div>
+                            </h5>
+                            <p>
+                              {{
+                                equipment[participant.toLowerCase()]
+                                  ?.mainEquipment.tent.description
+                              }}
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
 
-                    <!-- Show categorized equipment for first participant -->
+                  <!-- Show categorized equipment for first participant -->
+                  <template
+                    v-if="participant === currentAdventure.participants[0]"
+                  >
                     <template
-                      v-if="participant === currentAdventure.participants[0]"
+                      v-for="(category, categoryKey) in equipment.categories"
+                      :key="categoryKey"
                     >
                       <template
-                        v-for="(category, categoryKey) in equipment.categories"
-                        :key="categoryKey"
+                        v-if="
+                          equipment.martin[categoryKey] &&
+                          equipment.martin[categoryKey].length > 0
+                        "
                       >
-                        <template
-                          v-if="
-                            equipment.martin[categoryKey] &&
-                            equipment.martin[categoryKey].length > 0
-                          "
-                        >
-                          <h4 class="mt-4">{{ category.title }}</h4>
-                          <div class="equipment-list">
-                            <div
-                              class="equipment-item"
-                              v-for="(item, index) in equipment.martin[
-                                categoryKey
-                              ]"
-                              :key="index"
+                        <h4 class="mt-4">{{ category.title }}</h4>
+                        <div class="equipment-list">
+                          <div
+                            class="equipment-item"
+                            v-for="(item, index) in equipment.martin[
+                              categoryKey
+                            ]"
+                            :key="index"
+                          >
+                            <i :class="`bi ${item.icon}`"></i>
+                            <span
+                              ><strong>{{ item.title }}</strong> -
+                              {{ item.description }}</span
                             >
-                              <i :class="`bi ${item.icon}`"></i>
-                              <span
-                                ><strong>{{ item.title }}</strong> -
-                                {{ item.description }}</span
-                              >
-                            </div>
                           </div>
-                        </template>
+                        </div>
                       </template>
                     </template>
+                  </template>
 
-                    <!-- Show other equipment for other participants -->
-                    <template v-else>
-                      <h4 class="mt-4">Weitere Ausrüstungsgegenstände</h4>
-                      <div class="equipment-list">
-                        <div
-                          class="equipment-item"
-                          v-for="(item, index) in equipment.rafael
-                            .otherEquipment"
-                          :key="index"
+                  <!-- Show other equipment for other participants -->
+                  <template v-else>
+                    <h4 class="mt-4">Weitere Ausrüstungsgegenstände</h4>
+                    <div class="equipment-list">
+                      <div
+                        class="equipment-item"
+                        v-for="(item, index) in equipment.rafael
+                          .otherEquipment"
+                        :key="index"
+                      >
+                        <i :class="`bi ${item.icon}`"></i>
+                        <span
+                          ><strong>{{ item.title }}</strong> -
+                          {{ item.description }}</span
                         >
-                          <i :class="`bi ${item.icon}`"></i>
-                          <span
-                            ><strong>{{ item.title }}</strong> -
-                            {{ item.description }}</span
-                          >
-                        </div>
                       </div>
-                    </template>
-                  </div>
-                </div>
+                    </div>
+                  </template>
+                </AppCard>
               </div>
             </div>
 
             <!-- Philosophy section -->
-            <div
-              class="equipment-philosophy mt-4 p-4 rounded"
+            <AppCard
+              :elevation="2"
+              :theme="participant === 'Rafael' ? 'accent' : 'primary'"
+              class="equipment-philosophy mt-4"
               :class="{ 'rafael-philosophy': participant === 'Rafael' }"
             >
               <h4>
@@ -311,7 +320,7 @@
                   }}"</em
                 >
               </p>
-            </div>
+            </AppCard>
           </div>
         </template>
 
@@ -323,7 +332,7 @@
           role="tabpanel"
           aria-labelledby="shared-tab"
         >
-          <div class="shared-equipment-intro p-4 rounded mb-4">
+          <AppCard :elevation="3" theme="info" class="shared-equipment-intro mb-4">
             <div class="row align-items-center">
               <div class="col-md-8">
                 <h3>{{ equipment.shared.intro.title }}</h3>
@@ -333,7 +342,7 @@
                 <i class="bi bi-people-fill shared-icon"></i>
               </div>
             </div>
-          </div>
+          </AppCard>
 
           <div class="row g-4">
             <div
@@ -341,60 +350,63 @@
               v-for="(item, index) in equipment.shared.items"
               :key="index"
             >
-              <div class="shared-item-card h-100">
-                <div class="card-icon">
-                  <i :class="`bi ${item.icon}`"></i>
-                </div>
-                <h4>{{ item.title }}</h4>
-                <p>{{ item.description }}</p>
-              </div>
+              <FeatureItem
+                :title="item.title"
+                :description="item.description"
+                :icon="item.icon"
+              />
             </div>
           </div>
 
-          <div class="equipment-philosophy shared-philosophy mt-4 p-4 rounded">
+          <AppCard
+            :elevation="2"
+            theme="info"
+            class="mt-4 shared-philosophy"
+          >
             <h4>{{ equipment.shared.philosophy.title }}</h4>
             <p>{{ equipment.shared.philosophy.text }}</p>
-          </div>
+          </AppCard>
         </div>
       </div>
 
       <div class="text-center mt-5">
-        <button
-          class="btn btn-primary me-2"
-          @click="$emit('navigate', 'route')"
-        >
-          <i class="bi bi-map me-2"></i> Zur Routenplanung
-        </button>
-        <button
-          class="btn btn-outline-primary"
-          @click="$emit('navigate', 'gallery')"
-        >
-          <i class="bi bi-images me-2"></i> Zur Galerie
-        </button>
+        <router-link to="/route">
+          <AppButton
+            variant="primary"
+            class="me-2"
+          >
+            <template #icon>
+              <i class="bi bi-map"></i>
+            </template>
+            Zur Routenplanung
+          </AppButton>
+        </router-link>
+        <router-link to="/gallery">
+          <AppButton
+            variant="outline-primary"
+          >
+            <template #icon>
+              <i class="bi bi-images"></i>
+            </template>
+            Zur Galerie
+          </AppButton>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import {
-  getCurrentAdventure,
-  getEquipmentForAdventure,
-} from "../data/adventures";
-import {
-  formatDate,
-  formatReadableDate,
-  calculateDays,
-} from "../data/dateUtils";
-
-defineEmits(["navigate"]);
+import { ref, computed, inject } from "vue";
+import { getEquipmentForAdventure } from "../data/adventures";
+import { formatReadableDate, calculateDays } from "../data/dateUtils";
+import { AppCard, AppButton, FeatureItem, SectionTitle } from "./common";
 
 // Aktiver Tab
 const activeTab = ref("martin");
 
-// Aktuelles Abenteuer und Equipment-Daten laden
-const currentAdventure = ref(getCurrentAdventure());
+// Aktuelles Abenteuer injizieren statt neu zu laden
+const currentAdventure = inject('currentAdventure');
 const equipment = ref(getEquipmentForAdventure());
 
 // Berechnete Anzahl der Tage für das aktuelle Abenteuer
@@ -413,18 +425,14 @@ const adventureDays = computed(() => {
 .tour-info-banner {
   background: linear-gradient(to right, var(--primary-color), #0097ff);
   color: white;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-md, 10px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* Profile-specific styles */
 .profile-icon {
   font-size: 4rem;
-  color: var(--primary-color);
-}
-
-.rafael-profile .profile-icon {
-  color: var(--accent-color);
+  color: var(--primary-color, #0066cc);
 }
 
 .equipment-style {
@@ -435,9 +443,9 @@ const adventureDays = computed(() => {
 
 .style-tag {
   background-color: rgba(0, 123, 255, 0.1);
-  color: var(--primary-color);
+  color: var(--primary-color, #0066cc);
   padding: 5px 10px;
-  border-radius: var(--radius-pill);
+  border-radius: 20px;
   margin-right: 8px;
   margin-bottom: 8px;
   font-size: 0.9rem;
@@ -451,50 +459,89 @@ const adventureDays = computed(() => {
 
 .bike-details,
 .tent-details {
-  background-color: var(--background-light);
+  background-color: #f8f9fa;
   padding: 15px;
-  border-radius: var(--radius-md);
+  border-radius: 10px;
 }
 
-/* Rafael specific styles */
-.rafael-philosophy {
-  background-color: #f1fff6;
-  border-left: 5px solid var(--accent-color);
+/* Equipment list styling */
+.equipment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* Shared equipment section styles */
-.shared-equipment-intro {
-  background: linear-gradient(to right, #17a2b8, #5bc0de);
-  color: white;
-  border-radius: var(--radius-md);
+.equipment-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
+.equipment-item i {
+  margin-right: 10px;
+  color: var(--primary-color, #0066cc);
+  font-size: 1.2rem;
+}
+
+.equipment-item:hover {
+  transform: translateX(5px);
+  background-color: #edf2ff;
+}
+
+/* Shared section styles */
 .shared-icon {
   font-size: 3rem;
   opacity: 0.8;
+  color: white;
 }
 
-.shared-item-card {
-  background-color: var(--background-light);
-  border-radius: var(--radius-md);
-  padding: 25px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-normal);
+/* Tab styling */
+.nav-tabs .nav-link {
+  border: none;
+  color: var(--secondary-color, #6c757d);
+  padding: 12px 20px;
+  border-radius: 0;
+  position: relative;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-.shared-item-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-md);
+.nav-tabs .nav-link:hover {
+  color: var(--primary-color, #0066cc);
+  background-color: rgba(0, 102, 204, 0.05);
 }
 
-.card-icon {
-  font-size: 2rem;
-  color: #17a2b8;
-  margin-bottom: 15px;
+.nav-tabs .nav-link.active {
+  color: var(--primary-color, #0066cc);
+  border-bottom: 2px solid var(--primary-color, #0066cc);
+  background-color: transparent;
 }
 
-.shared-philosophy {
-  background-color: var(--background-light);
-  border-left: 5px solid #17a2b8;
+.nav-tabs .nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color, #0066cc);
+  transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Tab content transition */
+.tab-pane {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

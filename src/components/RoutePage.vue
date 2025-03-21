@@ -1,69 +1,77 @@
 <template>
-  <div class="route">
+  <div class="route page-transition">
     <div class="container py-5">
-      <h1 class="display-4 mb-5 text-center">
-        {{ currentAdventure.title }}: Unsere {{ currentAdventure.distance }}km Route
-      </h1>
+      <SectionTitle
+        :title="`${currentAdventure.title}: Unsere ${currentAdventure.distance}km Route`"
+        dividerWidth="150px"
+      />
 
       <div class="row mb-5">
         <div class="col-lg-8 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">Routenübersicht</h2>
-              <div class="map-placeholder">
-                <!-- Hier später eine echte Karte mit eurer Route einfügen -->
-                <div class="map-overlay">
-                  <span>Karte wird geladen...</span>
-                </div>
+          <AppCard
+            title="Routenübersicht"
+            theme="primary"
+            :elevation="2"
+          >
+            <div class="map-placeholder">
+              <!-- Hier später eine echte Karte mit eurer Route einfügen -->
+              <div class="map-overlay">
+                <span>Karte wird geladen...</span>
               </div>
-              <p class="mt-3">
-                {{ currentAdventure.route.description }}
-              </p>
             </div>
-          </div>
+            <p class="mt-3">
+              {{ currentAdventure.route.description }}
+            </p>
+          </AppCard>
         </div>
 
         <div class="col-lg-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">Routenstatistik</h2>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Gesamtdistanz:</span>
-                  <strong>{{ currentAdventure.distance }} km</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Geplante Dauer:</span>
-                  <strong>{{ adventureDays }} Tage</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Höhenmeter aufwärts:</span>
-                  <strong>{{ currentAdventure.route.totalElevationUp }} m</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Höhenmeter abwärts:</span>
-                  <strong>{{ currentAdventure.route.totalElevationDown }} m</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Durchschnitt pro Tag:</span>
-                  <strong>~{{ Math.round(currentAdventure.distance / adventureDays) }} km</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Start:</span>
-                  <strong>{{ currentAdventure.route.start }}</strong>
-                </li>
-                <li class="list-group-item d-flex justify-content-between">
-                  <span>Ziel:</span>
-                  <strong>{{ currentAdventure.route.end }}</strong>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <AppCard
+            title="Routenstatistik"
+            theme="primary"
+            :elevation="2"
+            :full-height="true"
+          >
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Gesamtdistanz:</span>
+                <strong>{{ currentAdventure.distance }} km</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Geplante Dauer:</span>
+                <strong>{{ adventureDays }} Tage</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Höhenmeter aufwärts:</span>
+                <strong>{{ currentAdventure.route.totalElevationUp }} m</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Höhenmeter abwärts:</span>
+                <strong>{{ currentAdventure.route.totalElevationDown }} m</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Durchschnitt pro Tag:</span>
+                <strong>~{{ Math.round(currentAdventure.distance / adventureDays) }} km</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Start:</span>
+                <strong>{{ currentAdventure.route.start }}</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>Ziel:</span>
+                <strong>{{ currentAdventure.route.end }}</strong>
+              </li>
+            </ul>
+          </AppCard>
         </div>
       </div>
 
       <div class="mb-5">
-        <h2 class="mb-4">Etappenplan</h2>
+        <SectionTitle
+          title="Etappenplan"
+          :centered="false"
+          dividerWidth="80px"
+        />
         <div class="table-responsive">
           <table class="table table-hover">
             <thead class="table-primary">
@@ -99,52 +107,80 @@
       </div>
 
       <section>
-        <h2 class="mb-4">Unterkunft & Verpflegung</h2>
+        <SectionTitle
+          title="Unterkunft & Verpflegung"
+          :centered="false"
+          dividerWidth="100px"
+        />
         <div class="row">
           <div class="col-md-6">
-            <div class="card mb-4">
-              <div class="card-body">
-                <h3 class="h5">{{ currentAdventure.route.accommodationInfo.title }}</h3>
-                <p>
-                  {{ currentAdventure.route.accommodationInfo.description }}
-                </p>
-              </div>
-            </div>
+            <AppCard
+              :title="currentAdventure.route.accommodationInfo.title"
+              icon="bi bi-house"
+              :elevation="2"
+              theme="info"
+              :full-height="true"
+            >
+              {{ currentAdventure.route.accommodationInfo.description }}
+            </AppCard>
           </div>
           <div class="col-md-6">
-            <div class="card mb-4">
-              <div class="card-body">
-                <h3 class="h5">{{ currentAdventure.route.foodInfo.title }}</h3>
-                <p>
-                  {{ currentAdventure.route.foodInfo.description }}
-                </p>
-              </div>
-            </div>
+            <AppCard
+              :title="currentAdventure.route.foodInfo.title"
+              icon="bi bi-cup-hot"
+              :elevation="2"
+              theme="info"
+              :full-height="true"
+            >
+              {{ currentAdventure.route.foodInfo.description }}
+            </AppCard>
           </div>
         </div>
       </section>
 
+      <!-- Newsletter-Anmeldung -->
+      <div class="newsletter-section py-5 mt-5">
+        <NewsletterSignup
+          title="Route-Updates erhalten"
+          description="Erhalte Benachrichtigungen, wenn wir unsere Route aktualisieren oder neue Informationen hinzufügen."
+          hint="Wir senden nur relevante Updates zu dieser Radtour"
+        />
+      </div>
+
       <div class="text-center mt-5">
-        <button class="btn btn-primary me-2" @click="$emit('navigate', 'equipment')">
-          <i class="bi bi-bicycle me-2"></i>Unsere Ausrüstung
-        </button>
-        <button class="btn btn-outline-primary" @click="$emit('navigate', 'home')">
-          <i class="bi bi-house me-2"></i>Zurück zur Startseite
-        </button>
+        <router-link to="/equipment">
+          <AppButton
+            variant="primary"
+            class="me-2"
+          >
+            <template #icon>
+              <i class="bi bi-bicycle"></i>
+            </template>
+            Unsere Ausrüstung
+          </AppButton>
+        </router-link>
+        <router-link to="/">
+          <AppButton
+            variant="outline-primary"
+          >
+            <template #icon>
+              <i class="bi bi-house"></i>
+            </template>
+            Zurück zur Startseite
+          </AppButton>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { getCurrentAdventure } from '../data/adventures';
+import { computed, inject } from 'vue';
 import { calculateDays } from '../data/dateUtils';
+import { AppCard, AppButton, SectionTitle, NewsletterSignup } from './common';
 
-defineEmits(["navigate"]);
-
-// Aktuelles Abenteuer laden
-const currentAdventure = ref(getCurrentAdventure());
+// Aktuelles Abenteuer aus der App.vue injizieren
+const currentAdventure = inject('currentAdventure');
 
 // Berechne die Anzahl der Tage für das aktuelle Abenteuer
 const adventureDays = computed(() => {
@@ -165,6 +201,14 @@ const adventureDays = computed(() => {
   justify-content: center;
   border-radius: 5px;
   margin-bottom: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+.map-placeholder:hover {
+  transform: scale(1.01);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .map-overlay {
@@ -175,26 +219,66 @@ const adventureDays = computed(() => {
   font-weight: bold;
 }
 
-h2 {
-  position: relative;
-  padding-bottom: 10px;
-}
-
-h2:after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 50px;
-  height: 3px;
-  background-color: #007bff;
-}
-
+/* Verbesserte Tabellendarstellung */
 .table {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.table:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .table thead th {
   border-top: none;
+  background-color: var(--primary-color, #0066cc);
+  color: white;
+  font-weight: 500;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.table tfoot tr {
+  font-weight: 600;
+}
+
+/* Liste mit besserer Darstellung */
+.list-group-item {
+  border-left: none;
+  border-right: none;
+  transition: background-color 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.list-group-item:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.list-group-item strong {
+  font-weight: 600;
+  color: var(--primary-color, #0066cc);
+}
+
+/* Newsletter-Sektion */
+.newsletter-section {
+  margin: 40px 0;
 }
 </style>

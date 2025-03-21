@@ -1,6 +1,6 @@
 <template>
   <div class="home page-transition">
-    <!-- Modernes Hero Banner mit verbessertem Parallax-Effekt -->
+    <!-- Modernes Hero Banner mit Parallax-Effekt -->
     <div class="hero-parallax">
       <div class="parallax-content">
         <h1 class="display-2 mb-4 fw-bold text-shadow">
@@ -11,18 +11,29 @@
           {{ formatReadableDate(currentAdventure.startDate) }}!
         </p>
         <div class="hero-buttons">
-          <button
-            class="btn btn-primary btn-lg me-2"
-            @click="$emit('navigate', 'equipment')"
-          >
-            <i class="bi bi-bicycle me-2"></i>Ausrüstung entdecken
-          </button>
-          <button
-            class="btn btn-outline-light btn-lg"
-            @click="$emit('navigate', 'route')"
-          >
-            <i class="bi bi-map me-2"></i>Route ansehen
-          </button>
+          <router-link to="/equipment">
+            <AppButton
+              variant="primary"
+              size="lg"
+              class="me-2"
+            >
+              <template #icon>
+                <i class="bi bi-bicycle"></i>
+              </template>
+              Ausrüstung entdecken
+            </AppButton>
+          </router-link>
+          <router-link to="/route">
+            <AppButton
+              variant="outline-light"
+              size="lg"
+            >
+              <template #icon>
+                <i class="bi bi-map"></i>
+              </template>
+              Route ansehen
+            </AppButton>
+          </router-link>
         </div>
         <div class="scroll-indicator">
           <div class="mouse">
@@ -38,7 +49,10 @@
     <!-- Countdown-Timer -->
     <div class="countdown-section py-4">
       <div class="container">
-        <h2 class="text-center mb-4">Unser Abenteuer startet in</h2>
+        <SectionTitle
+          title="Unser Abenteuer startet in"
+          centered
+        />
         <div class="countdown-timer" id="countdown">
           <div class="countdown-item">
             <div class="countdown-value">{{ countdownValues.days }}</div>
@@ -61,122 +75,91 @@
     </div>
 
     <div class="container my-5">
-      <!-- Verbesserte Über Uns Karten mit vereinheitlichtem Design -->
-      <h2 class="section-title mb-4">Über unser Projekt</h2>
+      <!-- Verbesserte "Über Uns" Karten mit wiederverwendbaren Komponenten -->
+      <SectionTitle title="Über unser Projekt" />
       <div class="row">
         <div class="col-md-6 mb-4">
-          <div class="unified-card h-100">
-            <div class="card-body">
-              <div class="card-icon">
-                <i class="bi bi-people-fill"></i>
-              </div>
-              <h2 class="card-title">Über uns</h2>
-              <p class="card-text">
-                {{ currentAdventure.about.description }}
-              </p>
-            </div>
-          </div>
+          <AppCard
+            title="Über uns"
+            icon="bi bi-people-fill"
+            theme="primary"
+            :full-height="true"
+          >
+            {{ currentAdventure.about.description }}
+          </AppCard>
         </div>
 
         <div class="col-md-6 mb-4">
-          <div class="unified-card h-100">
-            <div class="card-body">
-              <div class="card-icon">
-                <i class="bi bi-flag-fill"></i>
-              </div>
-              <h2 class="card-title">Das Projekt</h2>
-              <p class="card-text">
-                {{ currentAdventure.about.projectGoals }}
-              </p>
-            </div>
-          </div>
+          <AppCard
+            title="Das Projekt"
+            icon="bi bi-flag-fill"
+            theme="accent"
+            :full-height="true"
+          >
+            {{ currentAdventure.about.projectGoals }}
+          </AppCard>
         </div>
       </div>
 
       <!-- Features-Sektion mit Icons -->
       <div class="features-section my-5 section-spacing">
-        <h2 class="section-title mb-5">Was dich erwartet</h2>
+        <SectionTitle
+          title="Was dich erwartet"
+          subtitle="Unsere Tour bietet dir viele spannende Einblicke"
+        />
         <div class="row text-center">
           <div class="col-lg-3 col-md-6 mb-4">
-            <div class="feature-item">
-              <div class="feature-icon">
-                <i class="bi bi-compass"></i>
-              </div>
-              <h3>{{ currentAdventure.distance }}km Route</h3>
-              <p>
-                Eine sorgfältig geplante Route durch die schönsten Landschaften
-              </p>
-            </div>
+            <FeatureItem
+              title="Route"
+              icon="bi bi-compass"
+              description="Eine sorgfältig geplante Route durch die schönsten Landschaften"
+            >
+              {{ currentAdventure.distance }}km Route
+            </FeatureItem>
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
-            <div class="feature-item">
-              <i class="bi bi-camera"></i>
-              <h3>Foto-Galerie</h3>
-              <p>Tägliche Bilder und Videos von unserer Reise</p>
-            </div>
+            <FeatureItem
+              title="Foto-Galerie"
+              icon="bi bi-camera"
+              description="Tägliche Bilder und Videos von unserer Reise"
+            />
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
-            <div class="feature-item">
-              <i class="bi bi-journal-text"></i>
-              <h3>Reisetagebuch</h3>
-              <p>Tägliche Updates und Erlebnisse live von der Tour</p>
-            </div>
+            <FeatureItem
+              title="Reisetagebuch"
+              icon="bi bi-journal-text"
+              description="Tägliche Updates und Erlebnisse live von der Tour"
+            />
           </div>
           <div class="col-lg-3 col-md-6 mb-4">
-            <div class="feature-item">
-              <i class="bi bi-gear"></i>
-              <h3>Equipment-Tests</h3>
-              <p>Unsere Erfahrungen mit der Ausrüstung im Praxistest</p>
-            </div>
+            <FeatureItem
+              title="Equipment-Tests"
+              icon="bi bi-gear"
+              description="Unsere Erfahrungen mit der Ausrüstung im Praxistest"
+            />
           </div>
         </div>
       </div>
 
-      <!-- Newsletter-Anmeldung -->
+      <!-- Newsletter-Anmeldung als wiederverwendbare Komponente -->
       <div class="newsletter-section py-5">
-        <div class="unified-card newsletter-card">
-          <div class="card-body p-4">
-            <div class="row align-items-center">
-              <div class="col-md-6">
-                <h2 class="mb-3">Bleib auf dem Laufenden!</h2>
-                <p>
-                  Abonniere unseren Newsletter und erhalte Updates zu unserer
-                  Tour direkt in dein Postfach.
-                </p>
-              </div>
-              <div class="col-md-6">
-                <div class="input-group">
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Deine E-Mail-Adresse"
-                    aria-label="E-Mail"
-                  />
-                  <button class="btn btn-primary" type="button">
-                    Abonnieren
-                  </button>
-                </div>
-                <small class="form-text text-muted mt-2"
-                  >Wir versenden nur Updates zu dieser Tour, kein Spam!</small
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <NewsletterSignup @submit="handleNewsletterSubmit" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
-import { getCurrentAdventure } from "../data/adventures";
+import { ref, onMounted, onUnmounted, inject } from "vue";
 import { formatReadableDate, calculateTimeUntil } from "../data/dateUtils";
+import SectionTitle from "./common/SectionTitle.vue";
+import AppCard from "./common/AppCard.vue";
+import FeatureItem from "./common/FeatureItem.vue";
+import AppButton from "./common/AppButton.vue";
+import NewsletterSignup from "./common/NewsletterSignup.vue";
 
-defineEmits(["navigate"]);
-
-// Das aktuelle Abenteuer laden
-const currentAdventure = ref(getCurrentAdventure());
+// Das aktuelle Abenteuer vom Hauptkomponenten injizieren
+const currentAdventure = inject('currentAdventure');
 
 // Reaktive Daten für den Countdown
 const countdownValues = ref({
@@ -188,58 +171,93 @@ const countdownValues = ref({
 
 // Variable für den Timer-Interval
 let countdownInterval = null;
+// Variable für den Scroll-Handler
+let scrollHandler = null;
+// Scroll Throttle Variable für Performance
+let lastScrollTime = 0;
+const throttleTime = 10; // ms - Wert für Scroll-Throttling
 
 onMounted(() => {
-  // Countdown-Timer Funktion
+  // Optimierter Countdown-Timer mit RequestAnimationFrame
   const countdownTimer = () => {
     const updateTimer = () => {
-      // Aktuelle Countdown-Werte berechnen
-      const timeValues = calculateTimeUntil(currentAdventure.value.startDate);
-      countdownValues.value = timeValues;
+      // RequestAnimationFrame für flüssigere Updates
+      countdownInterval = requestAnimationFrame(() => {
+        // Aktuelle Countdown-Werte berechnen
+        const timeValues = calculateTimeUntil(currentAdventure.value.startDate);
+
+        // Nur aktualisieren, wenn sich Werte geändert haben
+        if (JSON.stringify(countdownValues.value) !== JSON.stringify(timeValues)) {
+          countdownValues.value = timeValues;
+        }
+
+        // Timer wiederholen
+        updateTimer();
+      });
     };
 
-    // Timer sofort ausführen und dann alle Sekunde aktualisieren
+    // Timer sofort ausführen
     updateTimer();
-    countdownInterval = setInterval(updateTimer, 1000);
   };
 
-  // Verbesserter Parallax-Effekt für Hero-Banner
-  const parallaxEffect = () => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const heroElement = document.querySelector(".hero-parallax");
-      if (heroElement) {
-        // Sanfterer Parallax-Effekt
-        heroElement.style.backgroundPositionY = `calc(50% + ${
-          scrollPosition * 0.3
-        }px)`;
+  // Verbesserter Parallax-Effekt für Hero-Banner mit Performance-Optimierungen
+  const setupParallaxEffect = () => {
+    const heroElement = document.querySelector(".hero-parallax");
+
+    if (!heroElement) return;
+
+    // Hardware-Beschleunigung aktivieren
+    heroElement.style.willChange = 'background-position';
+
+    // Optimierter Scroll-Handler mit Throttling
+    scrollHandler = () => {
+      const now = Date.now();
+
+      // Throttle das Scroll-Event für bessere Performance
+      if (now - lastScrollTime >= throttleTime) {
+        lastScrollTime = now;
+
+        // Nutze requestAnimationFrame für flüssigere Animationen
+        requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY;
+          // Sanfterer Parallax-Effekt mit Transform statt Background-Position
+          const translateY = Math.min(scrollPosition * 0.3, 200);
+          heroElement.style.backgroundPosition = `center calc(50% + ${translateY}px)`;
+        });
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-
-    // Event-Listener bereinigen wenn Component unmounted wird
-    onUnmounted(() => {
-      window.removeEventListener("scroll", handleScroll);
-    });
+    // Event-Listener mit passivem Flag für bessere Performance
+    window.addEventListener("scroll", scrollHandler, { passive: true });
   };
 
-  // Funktionen ausführen
-  countdownTimer();
-  parallaxEffect();
+  // Funktionen ausführen mit kurzer Verzögerung für bessere Initial-Performance
+  requestAnimationFrame(() => {
+    countdownTimer();
+    setupParallaxEffect();
+  });
 });
 
-// Timer bereinigen, wenn die Komponente unmounted wird
+// Timer und Event-Listener bereinigen, wenn die Komponente unmounted wird
 onUnmounted(() => {
   if (countdownInterval) {
-    clearInterval(countdownInterval);
-    countdownInterval = null;
+    cancelAnimationFrame(countdownInterval);
+  }
+
+  if (scrollHandler) {
+    window.removeEventListener("scroll", scrollHandler);
   }
 });
+
+// Newsletter-Anmeldung verarbeiten
+const handleNewsletterSubmit = (data) => {
+  console.log('Newsletter-Anmeldung:', data.email);
+  // Hier könntest du die E-Mail an einen Backend-Service senden
+};
 </script>
 
 <style scoped>
-/* Hero Banner mit Parallax */
+/* Hero Banner mit Parallax - Optimiert für Performance */
 .hero-parallax {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
     url("/hero-bike.jpg");
@@ -253,6 +271,9 @@ onUnmounted(() => {
   color: white;
   position: relative;
   overflow: hidden; /* Verhindert überlappendes Scrollen */
+  will-change: background-position; /* Hardware-Beschleunigung für Parallax */
+  transform: translateZ(0); /* Force GPU-Beschleunigung */
+  transition: background-position 0ms linear; /* Keine Verzögerung für flüssigere Animation */
 }
 
 .parallax-content {
@@ -265,43 +286,11 @@ onUnmounted(() => {
   text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
 }
 
-/* Vereinheitlichte Karten-Stile */
-.card-icon {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: var(--primary-color);
+.hero-buttons {
+  margin-bottom: 3rem;
 }
 
-/* Feature Section */
-.features-section {
-  padding: 60px 0;
-}
-
-.feature-item {
-  padding: 30px 15px;
-  transition: all 0.3s ease;
-  border-radius: 10px;
-}
-
-.feature-item:hover {
-  background-color: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transform: translateY(-5px);
-}
-
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: var(--primary-color);
-}
-
-.feature-item i {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: var(--primary-color);
-}
-
-/* Scroll Indicator */
+/* Scroll Indicator - Optimiert für Performance */
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
@@ -309,6 +298,7 @@ onUnmounted(() => {
   transform: translateX(-50%);
   text-align: center;
   z-index: 3;
+  will-change: transform, opacity; /* Performance-Optimierung */
 }
 
 .mouse {
@@ -330,6 +320,7 @@ onUnmounted(() => {
   transform: translateX(-50%);
   border-radius: 2px;
   animation: scroll 2s infinite;
+  will-change: transform, opacity; /* Performance-Optimierung */
 }
 
 @keyframes scroll {
@@ -350,7 +341,7 @@ onUnmounted(() => {
   text-transform: uppercase;
 }
 
-/* Countdown Styles */
+/* Countdown Styles - Optimiert für Performance */
 .countdown-section {
   background-color: #f5f5f5;
   padding: 40px 0;
@@ -366,12 +357,13 @@ onUnmounted(() => {
 .countdown-item {
   text-align: center;
   min-width: 100px;
+  will-change: contents; /* Performance-Optimierung */
 }
 
 .countdown-value {
   font-size: 3rem;
   font-weight: 700;
-  background-color: var(--primary-color);
+  background-color: var(--primary-color, #0066cc);
   color: white;
   width: 100px;
   height: 100px;
@@ -381,24 +373,25 @@ onUnmounted(() => {
   justify-content: center;
   margin: 0 auto 10px;
   box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+  /* Performance-Optimierung - transformiert statt Größe/Position zu ändern */
+  transform: translateZ(0);
 }
 
 .countdown-label {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--secondary-color);
+  color: var(--secondary-color, #6c757d);
+}
+
+/* Features-Sektion */
+.features-section {
+  padding: 60px 0;
 }
 
 /* Newsletter Section */
 .newsletter-section {
   margin: 60px 0;
-}
-
-.newsletter-card {
-  border-radius: 15px;
-  background-image: linear-gradient(to right, #f8f9fa, #e9ecef);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Anpassungen */
@@ -412,6 +405,26 @@ onUnmounted(() => {
     width: 70px;
     height: 70px;
     font-size: 2rem;
+  }
+}
+
+/* Zusätzliche Performance-Optimierungen für mobile Geräte */
+@media (max-width: 480px) {
+  /* Reduziere oder deaktiviere Parallax-Effekt auf kleinen Geräten */
+  .hero-parallax {
+    background-position: center center !important;
+    will-change: auto; /* Deaktiviere Hardware-Beschleunigung auf mobilen Geräten */
+  }
+
+  /* Effektiveres Layout für kleinste Screens */
+  .countdown-timer {
+    gap: 10px;
+  }
+
+  .countdown-value {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
   }
 }
 </style>

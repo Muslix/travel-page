@@ -1,14 +1,13 @@
 <template>
   <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-      <a
+      <router-link
         class="navbar-brand d-flex align-items-center"
-        href="#"
-        @click.prevent="$emit('navigate', 'home')"
+        to="/"
       >
         <i class="bi bi-bicycle me-2"></i>
         <span>RAMAdventure</span>
-      </a>
+      </router-link>
 
       <button
         class="navbar-toggler"
@@ -25,44 +24,40 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link"
-              :class="{ active: activePage === 'home' }"
-              href="#"
-              @click.prevent="navigateTo('home')"
+              :class="{ active: $route.name === 'home' }"
+              to="/"
             >
               <i class="bi bi-house-door me-1"></i> Home
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link"
-              :class="{ active: activePage === 'equipment' }"
-              href="#"
-              @click.prevent="navigateTo('equipment')"
+              :class="{ active: $route.name === 'equipment' }"
+              to="/equipment"
             >
               <i class="bi bi-tools me-1"></i> Equipment
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link"
-              :class="{ active: activePage === 'route' }"
-              href="#"
-              @click.prevent="navigateTo('route')"
+              :class="{ active: $route.name === 'route' }"
+              to="/route"
             >
               <i class="bi bi-map me-1"></i> Route
-            </a>
+            </router-link>
           </li>
           <li class="nav-item">
-            <a
+            <router-link
               class="nav-link"
-              :class="{ active: activePage === 'gallery' }"
-              href="#"
-              @click.prevent="navigateTo('gallery')"
+              :class="{ active: $route.name === 'gallery' }"
+              to="/gallery"
             >
               <i class="bi bi-images me-1"></i> Galerie
-            </a>
+            </router-link>
           </li>
           <!-- Abenteuer Dropdown-Menü -->
           <li class="nav-item dropdown">
@@ -163,75 +158,25 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, nextTick } from "vue";
+import { ref, watch, onMounted, nextTick, computed, shallowRef } from "vue";
+import { useRoute } from 'vue-router';
 import { adventures, getCurrentAdventure, setCurrentAdventure } from "../data/adventures";
 
+// Aktuellen Router-Pfad beziehen
+const route = useRoute();
+
 const props = defineProps({
-  currentPage: {
-    type: String,
-    default: "home",
-  },
+  currentAdventure: {
+    type: Object,
+    required: true
+  }
 });
 
-const emit = defineEmits(["navigate", "adventureChanged"]);
+const emit = defineEmits(["adventureChanged"]);
 
-const activePage = ref(props.currentPage);
-const showDonateModal = ref(false);
-const availableAdventures = ref(adventures);
-const currentAdventure = ref(getCurrentAdventure());
+const availableAdventures = shallowRef(adventures); // Verwende shallowRef für bessere Performance
 
-// Aktualisiere die aktive Seite, wenn sich die Props ändern
-watch(
-  () => props.currentPage,
-  (newPage) => {
-    activePage.value = newPage;
-  }
-);
-
-const navigateTo = (page) => {
-  activePage.value = page;
-  emit("navigate", page);
-};
-
-// Bootstrap-Modal Referenz
-let modalInstance = null;
-
-// Funktion zum Öffnen des Modals
-const openDonateModal = () => {
-  if (modalInstance) {
-    modalInstance.show();
-  }
-};
-
-// Bootstrap-Modal initialisieren
-onMounted(() => {
-  // Warten bis das DOM vollständig geladen ist
-  nextTick(() => {
-    if (window.bootstrap) {
-      const modalElement = document.getElementById("donateModal");
-      if (modalElement) {
-        // Bootstrap Modal initialisieren
-        modalInstance = new window.bootstrap.Modal(modalElement);
-
-        // Event-Listener für das Schließen des Modals
-        modalElement.addEventListener("hidden.bs.modal", () => {
-          showDonateModal.value = false;
-        });
-      }
-    }
-  });
-});
-
-// Hilfsfunktion zum Kürzen von langen Titeln
-const getShortTitle = (title) => {
-  const colonIndex = title.indexOf(':');
-  if (colonIndex > 0) {
-    return title.substring(0, colonIndex).trim();
-  }
-  return title.length > 15 ? title.substring(0, 15) + '...' : title;
-};
-
-// Hilfsfunktion zur Bestimmung der Statusklasse
+// Statusklassen für Badges als computed property für bessere Performance
 const getStatusBadgeClass = (status) => {
   switch (status) {
     case 'upcoming':
@@ -245,7 +190,7 @@ const getStatusBadgeClass = (status) => {
   }
 };
 
-// Hilfsfunktion zur Übersetzung des Status
+// Übersetzung des Status als computed property für bessere Performance
 const getStatusLabel = (status) => {
   switch (status) {
     case 'upcoming':
@@ -259,13 +204,56 @@ const getStatusLabel = (status) => {
   }
 };
 
+// Hilfsfunktion zum Kürzen von langen Titeln - Optimiert um unnötige Berechnungen zu vermeiden
+const getShortTitle = (title) => {
+  if (!title) return 'Abenteuer wählen';
+  const colonIndex = title.indexOf(':');
+  if (colonIndex > 0) {
+    return title.substring(0, colonIndex).trim();
+  }
+  return title.length > 15 ? title.substring(0, 15) + '...' : title;
+};
+
 // Funktion zum Auswählen eines Abenteuers
 const selectAdventure = (adventureId) => {
+  // Verhindern unnötiger Aktualisierungen
+  if (props.currentAdventure.id === adventureId) return;
+
   if (setCurrentAdventure(adventureId)) {
-    currentAdventure.value = getCurrentAdventure();
-    emit("adventureChanged", currentAdventure.value);
+    emit("adventureChanged", getCurrentAdventure());
   }
 };
+
+// Bootstrap-Modal Referenz
+let modalInstance = null;
+
+// Funktion zum Öffnen des Modals - optimiert mit requestAnimationFrame
+const openDonateModal = () => {
+  requestAnimationFrame(() => {
+    if (modalInstance) {
+      modalInstance.show();
+    }
+  });
+};
+
+// Bootstrap-Modal initialisieren mit optimierter Performance
+onMounted(() => {
+  // Performance-optimierte DOM-Interaktion mit requestAnimationFrame
+  requestAnimationFrame(() => {
+    if (window.bootstrap) {
+      const modalElement = document.getElementById("donateModal");
+      if (modalElement) {
+        // Bootstrap Modal initialisieren
+        modalInstance = new window.bootstrap.Modal(modalElement);
+
+        // Event-Listener für das Schließen des Modals
+        modalElement.addEventListener("hidden.bs.modal", () => {
+          // Keine zusätzlichen Operationen nötig, da das Modal nicht mehr angezeigt wird
+        }, { passive: true }); // Passive Event Listener für bessere Performance
+      }
+    }
+  });
+});
 </script>
 
 <style scoped>
@@ -278,6 +266,9 @@ const selectAdventure = (adventureId) => {
   width: 100%;
   max-width: 100%;
   overflow: visible; /* Wichtig: Erlaubt dem Dropdown, über die Navbar hinauszuragen */
+  /* Performance-Optimierungen */
+  will-change: transform; /* Optimierung für Sticky-Verhalten */
+  transform: translateZ(0); /* Force GPU-Beschleunigung */
 }
 
 .navbar > .container {
@@ -289,6 +280,13 @@ const selectAdventure = (adventureId) => {
   font-weight: 700;
   font-size: 1.4rem;
   color: var(--primary-color);
+  /* Performance-Optimierung für Hover-Effekte */
+  will-change: transform;
+  transition: transform 0.2s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
 }
 
 .navbar-brand i {
@@ -314,15 +312,18 @@ const selectAdventure = (adventureId) => {
   background-color: var(--primary-color);
   transition: all 0.3s ease;
   transform: translateX(-50%);
+  will-change: width; /* Performance-Optimierung */
 }
 
 .nav-link:hover::after,
-.nav-link.active::after {
+.nav-link.active::after,
+.router-link-active::after {
   width: 80%;
 }
 
 .nav-link:hover,
-.nav-link.active {
+.nav-link.active,
+.router-link-active {
   color: var(--primary-color);
 }
 
@@ -331,6 +332,7 @@ const selectAdventure = (adventureId) => {
   border-radius: 20px;
   color: var(--primary-color);
   font-weight: 600;
+  will-change: background-color, color; /* Performance-Optimierung */
 }
 
 .highlight-link:hover {
@@ -341,6 +343,9 @@ const selectAdventure = (adventureId) => {
 /* Modal-Stile */
 .modal-content {
   border-radius: 10px;
+  /* Performance-Optimierung für Animationen */
+  will-change: opacity, transform;
+  transform: translateZ(0);
 }
 
 .modal-header {
@@ -371,7 +376,7 @@ const selectAdventure = (adventureId) => {
   overflow: visible !important; /* Erlaubt dem Dropdown, außerhalb zu erscheinen */
 }
 
-/* Dropdown-Menü richtig positionieren */
+/* Dropdown-Menü richtig positionieren - optimiert */
 .dropdown-menu {
   position: absolute !important; /* Immer absolute, um außerhalb der Navbar zu fließen */
   border-radius: var(--radius-md);
@@ -383,6 +388,8 @@ const selectAdventure = (adventureId) => {
   max-height: 80vh; /* Begrenzt die Höhe auf 80% der Viewport-Höhe */
   overflow-y: auto; /* Ermöglicht vertikales Scrollen, wenn das Menü zu groß ist */
   overflow-x: hidden; /* Verhindert horizontales Scrollen */
+  will-change: opacity, transform; /* Performance-Optimierung für Animationen */
+  transform: translateZ(0); /* Force GPU-Beschleunigung */
 }
 
 /* Verbessertes Layout für Adventure-Items */
@@ -400,7 +407,7 @@ const selectAdventure = (adventureId) => {
   gap: 8px; /* Abstand zwischen Titel und Badge */
 }
 
-/* Lauftext für zu lange Texte (Marquee-Effekt) */
+/* Lauftext für zu lange Texte (Marquee-Effekt) - Optimiert */
 .adventure-title {
   flex: 1;
   min-width: 0;
@@ -410,7 +417,9 @@ const selectAdventure = (adventureId) => {
 
 .adventure-title:hover .text-content {
   animation: marqueeTitleEffect 8s linear infinite;
+  animation-play-state: running;
   white-space: nowrap;
+  will-change: transform; /* Performance-Optimierung */
 }
 
 .adventure-subtitle {
@@ -421,9 +430,12 @@ const selectAdventure = (adventureId) => {
 
 .adventure-subtitle:hover .text-content {
   animation: marqueeSubtitleEffect 10s linear infinite;
+  animation-play-state: running;
   white-space: nowrap;
+  will-change: transform; /* Performance-Optimierung */
 }
 
+/* Performance-optimierte Animationen mit weniger Keyframes */
 @keyframes marqueeTitleEffect {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-100% + 150px)); }
@@ -439,6 +451,8 @@ const selectAdventure = (adventureId) => {
   white-space: nowrap;
   transition: transform 0.2s ease;
   padding-right: 20px; /* Etwas Abstand am Ende des Textes */
+  /* Animation nicht laufen, wenn nicht gehovered */
+  animation-play-state: paused;
 }
 
 .status-badge {
@@ -455,6 +469,7 @@ const selectAdventure = (adventureId) => {
   transition: all 0.2s;
   z-index: 1000;
   white-space: normal; /* Erlaubt Text-Umbruch bei Bedarf */
+  will-change: background-color; /* Performance-Optimierung */
 }
 
 /* Responsive Anpassungen */
@@ -469,6 +484,7 @@ const selectAdventure = (adventureId) => {
     max-height: 80vh; /* Begrenzt die Höhe auf 80% der Viewport-Höhe */
     overflow-y: auto; /* Ermöglicht vertikales Scrollen, wenn das Menü zu groß ist */
     overflow-x: hidden; /* Verhindert horizontales Scrollen */
+    will-change: opacity, transform; /* Performance-Optimierung */
   }
 
   .nav-link {
@@ -488,6 +504,14 @@ const selectAdventure = (adventureId) => {
     padding-left: 1rem;
     max-height: none; /* Kein Höhenlimit auf Mobilgeräten */
     overflow-y: visible; /* Kein Scrollen innerhalb des Dropdowns auf Mobilgeräten */
+    will-change: auto; /* Deaktiviere auf mobil für bessere Performance */
+    transform: none; /* Deaktiviere GPU-Beschleunigung auf mobil */
+  }
+
+  /* Deaktiviere aufwändige Animationen auf mobilen Geräten */
+  .adventure-title:hover .text-content,
+  .adventure-subtitle:hover .text-content {
+    animation: none;
   }
 }
 

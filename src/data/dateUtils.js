@@ -1,4 +1,9 @@
-// dateUtils.js - Hilfsfunktionen für Datumsformatierung und -berechnungen
+// dateUtils.js - Optimierte Hilfsfunktionen für Datumsformatierung und -berechnungen
+
+// Cache für formatierte Daten, um wiederholte Berechnungen zu vermeiden
+const dateFormatCache = new Map();
+const readableDateFormatCache = new Map();
+const dayCalculationCache = new Map();
 
 /**
  * Formatiert ein Datum ins deutsche Format (TT.MM.YYYY)
@@ -8,13 +13,25 @@
 export function formatDate(date) {
   if (!date) return "";
 
-  const dateObj = typeof date === "string" ? new Date(date) : date;
+  // Verwende Cache für bessere Performance
+  const cacheKey = date instanceof Date ? date.getTime() : date;
+  if (dateFormatCache.has(cacheKey)) {
+    return dateFormatCache.get(cacheKey);
+  }
 
-  return new Intl.DateTimeFormat("de-DE", {
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+  const formatter = new Intl.DateTimeFormat("de-DE", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
-  }).format(dateObj);
+  });
+
+  const formattedDate = formatter.format(dateObj);
+
+  // In Cache speichern
+  dateFormatCache.set(cacheKey, formattedDate);
+
+  return formattedDate;
 }
 
 /**
@@ -25,13 +42,26 @@ export function formatDate(date) {
 export function formatReadableDate(date) {
   if (!date) return "";
 
+  // Verwende Cache für bessere Performance
+  const cacheKey = date instanceof Date ? date.getTime() : date;
+  if (readableDateFormatCache.has(cacheKey)) {
+    return readableDateFormatCache.get(cacheKey);
+  }
+
   const dateObj = typeof date === "string" ? new Date(date) : date;
 
-  return new Intl.DateTimeFormat("de-DE", {
+  const formatter = new Intl.DateTimeFormat("de-DE", {
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(dateObj);
+  });
+
+  const formattedDate = formatter.format(dateObj);
+
+  // In Cache speichern
+  readableDateFormatCache.set(cacheKey, formattedDate);
+
+  return formattedDate;
 }
 
 /**
@@ -43,14 +73,44 @@ export function formatReadableDate(date) {
 export function calculateDays(startDate, endDate) {
   if (!startDate || !endDate) return 0;
 
-  const start = typeof startDate === "string" ? new Date(startDate) : startDate;
-  const end = typeof endDate === "string" ? new Date(endDate) : endDate;
+  // Erzeuge Cache-Key aus beiden Daten
+  const startKey = startDate instanceof Date ? startDate.getTime() : startDate;
+  const endKey = endDate instanceof Date ? endDate.getTime() : endDate;
+  const cacheKey = `${startKey}_${endKey}`;
 
-  const diffTime = Math.abs(end - start);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  // Prüfe Cache
+  if (dayCalculationCache.has(cacheKey)) {
+    return dayCalculationCache.get(cacheKey);
+  }
 
-  return diffDays + 1; // +1 weil wir Start- und Endtag mitzählen
+  // Optimierte Berechnung
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  // Setze Uhrzeiten auf 0:00:00 um Probleme mit DST (Daylight Saving Time) zu vermeiden
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+
+  // Performance-optimierte Berechnung
+  const diffTime = end.getTime() - start.getTime();
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 weil wir Start- und Endtag mitzählen
+
+  // In Cache speichern
+  dayCalculationCache.set(cacheKey, diffDays);
+
+  return diffDays;
 }
+
+// DateTimeFormat-Formatter vorinstanziieren für bessere Performance
+const timeFormatter = new Intl.DateTimeFormat('de-DE', {
+  hour: '2-digit',
+  minute: '2-digit'
+});
+
+// Zur Reduzierung von Rechenoperationen bei häufigen Countdown-Updates
+let lastCountdownUpdate = 0;
+let lastTargetTime = 0;
+let cachedCountdownResult = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
 /**
  * Berechnet die verbleibenden Tage bis zu einem Datum
@@ -62,25 +122,63 @@ export function calculateTimeUntil(targetDate) {
     return { days: 0, hours: 0, minutes: 0, seconds: 0 };
   }
 
-  const now = new Date().getTime();
-  const target =
-    typeof targetDate === "string"
-      ? new Date(targetDate).getTime()
-      : targetDate.getTime();
-  const distance = target - now;
+  const now = Date.now();
+  const target = targetDate instanceof Date ? targetDate.getTime() : new Date(targetDate).getTime();
 
-  // Wenn das Datum in der Vergangenheit liegt
-  if (distance < 0) {
-    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  // Wenn sich das Zieldatum geändert hat oder die letzte Aktualisierung mehr als 500ms her ist,
+  // dann neu berechnen (verhindert zu häufige Neuberechnungen)
+  if (target !== lastTargetTime || now - lastCountdownUpdate > 500) {
+    const distance = target - now;
+
+    // Wenn das Datum in der Vergangenheit liegt
+    if (distance < 0) {
+      cachedCountdownResult = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    } else {
+      // Optimierte Berechnung mit weniger Divisionen
+      const days = Math.floor(distance / 86400000); // 1000 * 60 * 60 * 24
+      const remainder = distance % 86400000;
+      const hours = Math.floor(remainder / 3600000); // 1000 * 60 * 60
+      const remainder2 = remainder % 3600000;
+      const minutes = Math.floor(remainder2 / 60000); // 1000 * 60
+      const seconds = Math.floor((remainder2 % 60000) / 1000);
+
+      cachedCountdownResult = { days, hours, minutes, seconds };
+    }
+
+    lastCountdownUpdate = now;
+    lastTargetTime = target;
   }
 
-  // Berechne Tage, Stunden, Minuten und Sekunden
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor(
-    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  return cachedCountdownResult;
+}
 
-  return { days, hours, minutes, seconds };
+// Hilfsfunktion zur Validierung von Datum-Strings (für Fehlerbehandlung)
+export function isValidDate(dateString) {
+  if (!dateString) return false;
+
+  const date = new Date(dateString);
+  return !isNaN(date.getTime());
+}
+
+/**
+ * Cache-Größe begrenzen und alte Einträge entfernen
+ * Diese Funktion kann periodisch aufgerufen werden, um den Cache zu bereinigen
+ */
+export function clearDateCaches() {
+  // Cache-Größen auf vernünftige Grenzen beschränken
+  if (dateFormatCache.size > 100) {
+    // Entferne die ältesten Einträge (vereinfacht)
+    const keysToDelete = Array.from(dateFormatCache.keys()).slice(0, 50);
+    keysToDelete.forEach(key => dateFormatCache.delete(key));
+  }
+
+  if (readableDateFormatCache.size > 100) {
+    const keysToDelete = Array.from(readableDateFormatCache.keys()).slice(0, 50);
+    keysToDelete.forEach(key => readableDateFormatCache.delete(key));
+  }
+
+  if (dayCalculationCache.size > 100) {
+    const keysToDelete = Array.from(dayCalculationCache.keys()).slice(0, 50);
+    keysToDelete.forEach(key => dayCalculationCache.delete(key));
+  }
 }

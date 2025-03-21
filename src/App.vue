@@ -1,50 +1,42 @@
 <script setup>
-import { ref, onMounted, provide } from 'vue';
+import { ref, onMounted, provide, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
 import Navbar from './components/Navbar.vue';
-import HomePage from './components/HomePage.vue';
-import EquipmentPage from './components/EquipmentPage.vue';
-import RoutePage from './components/RoutePage.vue';
-import GalleryPage from './components/GalleryPage.vue';
 import { getCurrentAdventure } from './data/adventures';
+
+// Router-Instanz abrufen
+const router = useRouter();
 
 // Loading state
 const isLoading = ref(true);
 
-// Aktuell angezeigte Seite
-const currentPage = ref('home');
-
 // Aktuelles Abenteuer
 const currentAdventure = ref(getCurrentAdventure());
-
-// Navigation wechseln
-function navigateTo(page) {
-  currentPage.value = page;
-  // Scrollen zum Seitenanfang bei Seitenwechsel
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Funktion zum Aktualisieren des aktuellen Abenteuers
-function updateCurrentAdventure(adventure) {
-  currentAdventure.value = adventure;
-
-  // Die Komponenten durch einen key-Wechsel aktualisieren
-  reloadComponents();
-}
 
 // Eine eindeutige ID für den Komponenten-Key
 const componentKey = ref(0);
 
+// Funktion zum Aktualisieren des aktuellen Abenteuers
+const updateCurrentAdventure = (adventure) => {
+  currentAdventure.value = adventure;
+  reloadComponents();
+};
+
 // Funktion zum Neuladen der Komponenten
-function reloadComponents() {
+const reloadComponents = () => {
   componentKey.value++;
-}
+};
 
 // Make sure all styles are loaded before displaying content
 onMounted(() => {
   // Brief delay to ensure all CSS is processed
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 100);
+  // Verbessert mit nextTick für bessere Performance
+  nextTick(() => {
+    // Verwende requestAnimationFrame für sanftere visuelle Übergänge
+    requestAnimationFrame(() => {
+      isLoading.value = false;
+    });
+  });
 });
 
 // Das aktuelle Abenteuer für alle Komponenten bereitstellen
@@ -60,23 +52,15 @@ provide('currentAdventure', currentAdventure);
     </div>
 
     <template v-else>
-      <Navbar @navigate="navigateTo" @adventureChanged="updateCurrentAdventure" :currentPage="currentPage" />
+      <Navbar :currentAdventure="currentAdventure" @adventureChanged="updateCurrentAdventure" />
 
       <main class="main-content">
         <transition name="fade" mode="out-in">
-          <component
-            :is="currentPage === 'home' ? HomePage :
-                 currentPage === 'equipment' ? EquipmentPage :
-                 currentPage === 'route' ? RoutePage :
-                 currentPage === 'gallery' ? GalleryPage : null"
-            @navigate="navigateTo"
-            :key="`${currentPage}-${componentKey}`"
-          />
+          <router-view :key="componentKey" />
         </transition>
       </main>
 
       <footer class="bg-dark text-white py-4 mt-5">
-        <!-- Footer-Inhalt aktualisieren, um das aktuelle Abenteuer anzuzeigen -->
         <div class="container">
           <div class="row">
             <div class="col-md-5">
@@ -94,18 +78,18 @@ provide('currentAdventure', currentAdventure);
             <div class="col-md-4">
               <h5 class="mb-3">Schnellnavigation</h5>
               <ul class="list-unstyled footer-links">
-                <li><a href="#" class="text-light text-decoration-none" @click.prevent="navigateTo('home')">
+                <li><router-link to="/" class="text-light text-decoration-none">
                   <i class="bi bi-chevron-right me-1 small"></i> Startseite
-                </a></li>
-                <li><a href="#" class="text-light text-decoration-none" @click.prevent="navigateTo('equipment')">
+                </router-link></li>
+                <li><router-link to="/equipment" class="text-light text-decoration-none">
                   <i class="bi bi-chevron-right me-1 small"></i> Unsere Ausrüstung
-                </a></li>
-                <li><a href="#" class="text-light text-decoration-none" @click.prevent="navigateTo('route')">
+                </router-link></li>
+                <li><router-link to="/route" class="text-light text-decoration-none">
                   <i class="bi bi-chevron-right me-1 small"></i> Streckenplan
-                </a></li>
-                <li><a href="#" class="text-light text-decoration-none" @click.prevent="navigateTo('gallery')">
+                </router-link></li>
+                <li><router-link to="/gallery" class="text-light text-decoration-none">
                   <i class="bi bi-chevron-right me-1 small"></i> Bildergalerie
-                </a></li>
+                </router-link></li>
               </ul>
             </div>
             <div class="col-md-3">
@@ -120,28 +104,13 @@ provide('currentAdventure', currentAdventure);
               <p class="mb-0 small">&copy; 2025 RAMAdventure. Alle Rechte vorbehalten.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
-              <button class="btn btn-sm btn-outline-light" @click="window.scrollTo({top: 0, behavior: 'smooth'})">
+              <button class="btn btn-sm btn-outline-light" @click="(() => requestAnimationFrame(() => window.scrollTo({top: 0, behavior: 'smooth'})))()">
                 <i class="bi bi-arrow-up me-1"></i> Nach oben
               </button>
             </div>
           </div>
         </div>
       </footer>
-
-      <!-- Cookie-Banner mit einheitlichem Design -->
-      <!-- <div class="cookie-banner" id="cookieBanner">
-        <div class="container">
-          <div class="d-flex align-items-center justify-content-between flex-wrap">
-            <p class="mb-md-0">Diese Website verwendet Cookies, um Ihr Erlebnis zu verbessern.</p>
-            <div class="cookie-buttons">
-              <button class="btn btn-sm btn-outline-secondary me-2">Einstellungen</button>
-              <button class="btn btn-sm btn-primary" @click="document.getElementById('cookieBanner').style.display='none'">
-                Akzeptieren
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </template>
   </div>
 </template>
@@ -154,6 +123,11 @@ provide('currentAdventure', currentAdventure);
   --accent-color: #28a745;
   --dark-color: #343a40;
   --light-color: #f8f9fa;
+
+  /* Animation Duration Variablen für einheitliche Animationszeiten */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
 }
 
 /* Fix für das temporäre Scrollbar-Problem */
@@ -212,12 +186,13 @@ body {
   overflow-x: hidden; /* Verhindert horizontales Scrollen im Hauptinhalt */
 }
 
-/* Seitenübergang-Animationen optimiert */
+/* Seitenübergang-Animationen optimiert mit will-change für Hardware-Beschleunigung */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal) ease;
   overflow: hidden; /* Verhindert Overflow während der Animation */
   width: 100%;
+  will-change: opacity; /* Hardware-Beschleunigung für sanftere Übergänge */
 }
 
 .fade-enter-from,
@@ -235,7 +210,13 @@ h1, h2, h3, h4, h5 {
   border-radius: 10px;
   border: none;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  will-change: transform, box-shadow; /* Performance-Optimierung für Hover-Effekte */
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 /* Einheitliche Button-Stile */
@@ -243,7 +224,7 @@ h1, h2, h3, h4, h5 {
   border-radius: 4px;
   padding: 0.5rem 1.25rem;
   font-weight: 500;
-  transition: all 0.3s;
+  transition: all var(--transition-normal);
 }
 
 .btn-primary {
@@ -275,7 +256,8 @@ h1, h2, h3, h4, h5 {
   height: 36px;
   border-radius: 50%;
   background-color: rgba(255,255,255,0.1);
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal) ease;
+  will-change: transform, background-color; /* Performance-Optimierung */
 }
 
 .social-icons a:hover {
@@ -289,7 +271,8 @@ h1, h2, h3, h4, h5 {
 
 .footer-links li {
   margin-bottom: 8px;
-  transition: all 0.2s;
+  transition: transform var(--transition-fast);
+  will-change: transform; /* Performance-Optimierung */
 }
 
 .footer-links li:hover {
@@ -357,11 +340,12 @@ h1, h2, h3, h4, h5 {
   width: auto; /* Verhindert Overflow */
 }
 
-/* Animationen vereinheitlichen */
+/* Animationen vereinheitlichen mit Performance-Optimierung */
 .page-transition {
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn var(--transition-normal) ease-out;
   width: 100%;
   overflow-x: hidden;
+  will-change: opacity, transform; /* Performance-Optimierung */
 }
 
 @keyframes fadeIn {
@@ -379,5 +363,15 @@ img {
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Verbesserte Performance für Hover und Animationen */
+.hover-effect {
+  transition: transform var(--transition-normal) ease;
+  will-change: transform;
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
 }
 </style>
