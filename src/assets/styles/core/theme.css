@@ -1,0 +1,225 @@
+/*
+ * Travel-Page Design System
+ * Zentrale Theming-Datei für einheitliches Design in der gesamten Anwendung
+ */
+
+:root {
+  /* Farbpalette */
+  --primary-color: #0066cc;
+  --primary-light: #4d94db;
+  --primary-dark: #004c99;
+  --primary-contrast: #ffffff;
+
+  --secondary-color: #505a68;
+  --secondary-light: #757f8c;
+  --secondary-dark: #3a4250;
+  --secondary-contrast: #ffffff;
+
+  --accent-color: #25a03a;
+  --accent-light: #4fba61;
+  --accent-dark: #1c7b2c;
+  --accent-contrast: #ffffff;
+
+  --success-color: #28a745;
+  --success-light: #48c664;
+  --success-dark: #1e7e34;
+  --success-contrast: #ffffff;
+
+  --info-color: #17a2b8;
+  --info-light: #4dbbc8;
+  --info-dark: #117a8b;
+  --info-contrast: #ffffff;
+
+  --warning-color: #ffc107;
+  --warning-light: #ffce3a;
+  --warning-dark: #d39e00;
+  --warning-contrast: #212529;
+
+  --danger-color: #dc3545;
+  --danger-light: #e35d6a;
+  --danger-dark: #bd2130;
+  --danger-contrast: #ffffff;
+
+  /* Kartenfarben - neu hinzugefügt */
+  --card-background: #ffffff;
+  --card-text: #333333;
+  --card-header-background: #f5f7fa;
+
+  /* Allgemeine UI-Farben mit verbessertem Kontrast */
+  --text-color: #333333;
+  --text-light: #505050;
+  --text-muted: #777777;
+  --background-color: #ffffff;
+  --background-muted: #f5f7fa;
+  --border-color: #e0e0e0;
+
+  /* Text-Farben */
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #8a8f94;
+  --text-light: #f8f9fa;
+  --text-dark: #343a40;
+
+  /* Hintergrund-Farben */
+  --background-light: #ffffff;
+  --background-medium: #e9ecef;
+  --background-dark: #343a40;
+  --background-muted: #f8f9fa;
+  --card-background: #ffffff; /* Neue Variable für Karten-Hintergrund */
+  --card-text: #212529; /* Neue Variable für Karten-Text */
+
+  /* Schattierungen */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  --shadow-inset: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+
+  /* Border-Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 50px;
+  --radius-circle: 50%;
+
+  /* Spacing-System */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  --spacing-xxl: 3rem;    /* 48px */
+  --spacing-xxxl: 4rem;   /* 64px */
+
+  /* Typografie */
+  --font-family-base: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+  --font-family-heading: 'Segoe UI', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-xxl: 1.5rem;   /* 24px */
+  --font-size-xxxl: 1.75rem; /* 28px */
+  --font-size-display: 2rem; /* 32px */
+
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+  --line-height-loose: 1.8;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Übergänge */
+  --transition-fast: all 0.2s ease;
+  --transition-normal: all 0.3s ease;
+  --transition-slow: all 0.5s ease;
+
+  /* Container */
+  --container-max-width: 1200px;
+  --container-padding: 1rem;
+
+  /* Z-Index-Stufen */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /* Grenzen und Trennlinien */
+  --border-width: 1px;
+  --border-width-thick: 2px;
+  --border-color: #dee2e6;
+  --border-color-light: #f8f9fa;
+  --border-color-dark: #6c757d;
+  
+  /* Animation-Dauer */
+  --animation-duration-fast: 0.2s;
+  --animation-duration-normal: 0.3s;
+  --animation-duration-slow: 0.5s;
+}
+
+/* Standard Animationen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0) translate(-50%, -50%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20) translate(-50%, -50%);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(15px);
+  }
+}
+
+/* Utility-Klassen für Animationen */
+.fade-in {
+  animation: fadeIn var(--animation-duration-normal) ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--animation-duration-normal) ease forwards;
+}
+
+.zoom-in {
+  animation: zoomIn var(--animation-duration-normal) ease forwards;
+}
+
+.spin {
+  animation: spin 1.2s linear infinite;
+}
+
+/* Responsives Verhalten für Typografie und Abstände */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1.25rem;   /* 20px statt 24px */
+    --spacing-xl: 1.75rem;   /* 28px statt 32px */
+    --spacing-xxl: 2.5rem;   /* 40px statt 48px */
+    --spacing-xxxl: 3.5rem;  /* 56px statt 64px */
+
+    --font-size-display: 1.75rem; /* 28px statt 32px */
+    --font-size-xxxl: 1.5rem;     /* 24px statt 28px */
+  }
+}

@@ -1,0 +1,118 @@
+/**
+ * Routen-Komponenten
+ * Enthält Stile für Routen-Seiten und Karten
+ */
+
+ @import '../core/variables.css';
+
+ /*******************************
+  * ROUTE PAGE SPECIFIC STYLES 
+  *******************************/
+ .map-placeholder {
+   height: 400px;
+   background-color: #eee;
+   position: relative;
+   border-radius: 8px;
+   overflow: hidden;
+ }
+ 
+ .map-overlay {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background: url('https://placehold.co/600x400/e9ecef/ced4da?text=Karte+wird+geladen') center/cover;
+   color: #6c757d;
+   font-weight: 500;
+ }
+ 
+ /* Route-Infos */
+ .route-info {
+   background-color: var(--background-muted);
+   border-radius: var(--radius-md);
+   padding: var(--spacing-md);
+   margin-bottom: var(--spacing-lg);
+ }
+ 
+ .route-stats {
+   display: flex;
+   flex-wrap: wrap;
+   gap: var(--spacing-md);
+   margin-bottom: var(--spacing-lg);
+ }
+ 
+ .route-stat-item {
+   flex: 1;
+   min-width: 120px;
+   text-align: center;
+   background-color: white;
+   padding: var(--spacing-md);
+   border-radius: var(--radius-md);
+   box-shadow: var(--shadow-sm);
+ }
+ 
+ .route-stat-value {
+   font-size: var(--font-size-xl);
+   font-weight: var(--font-weight-bold);
+   color: var(--primary-color);
+   display: block;
+   margin-bottom: var(--spacing-xs);
+ }
+ 
+ .route-stat-label {
+   font-size: var(--font-size-sm);
+   color: var(--text-secondary);
+   text-transform: uppercase;
+   letter-spacing: 1px;
+ }
+ 
+ .route-milestone {
+   display: flex;
+   align-items: flex-start;
+   margin-bottom: var(--spacing-md);
+   padding-bottom: var(--spacing-md);
+   border-bottom: 1px dashed var(--border-color);
+ }
+ 
+ .route-milestone-marker {
+   flex-shrink: 0;
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   background-color: var(--primary-color);
+   color: white;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-right: var(--spacing-md);
+ }
+ 
+ .route-milestone-content {
+   flex-grow: 1;
+ }
+ 
+ .route-milestone-title {
+   font-weight: var(--font-weight-semibold);
+   margin-bottom: var(--spacing-xs);
+ }
+ 
+ /* Responsive Anpassungen */
+ @media (max-width: 768px) {
+   .map-placeholder {
+     height: 300px;
+   }
+   
+   .route-stat-item {
+     min-width: 100px;
+   }
+ }
+ 
+ @media (max-width: 576px) {
+   .route-stat-value {
+     font-size: var(--font-size-lg);
+   }
+ }

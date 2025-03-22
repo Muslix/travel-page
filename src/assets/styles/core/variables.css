@@ -1,0 +1,107 @@
+/**
+ * CSS-Variablen
+ * Zentrale Konfiguration für die Designssprache der gesamten Anwendung
+ */
+
+:root {
+  /* Farben */
+  --primary-color: #0066cc;
+  --primary-dark: #0055b3;
+  --primary-light: #1a75d1;
+  --primary-contrast: white;
+
+  --secondary-color: #6c757d;
+  --secondary-dark: #5a6268;
+  --secondary-light: #868e96;
+  --secondary-contrast: white;
+
+  --accent-color: #28a745;
+  --accent-dark: #218838;
+  --accent-light: #48b461;
+  --accent-contrast: white;
+
+  --success-color: #28a745;
+  --success-dark: #218838;
+  --success-light: #48b461;
+  --success-contrast: white;
+
+  --info-color: #17a2b8;
+  --info-dark: #138496;
+  --info-light: #31b0c7;
+  --info-contrast: white;
+
+  --warning-color: #ffc107;
+  --warning-dark: #e0a800;
+  --warning-light: #ffce3a;
+  --warning-contrast: #212529;
+
+  --danger-color: #dc3545;
+  --danger-dark: #c82333;
+  --danger-light: #e15361;
+  --danger-contrast: white;
+
+  --dark-color: #343a40;
+  --light-color: #f8f9fa;
+  
+  /* Text */
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-muted: #868e96;
+  
+  /* Hintergrund */
+  --background-light: #f8f9fa;
+  --background-medium: #e9ecef;
+  --background-muted: #f1f3f5;
+  --background-dark: #343a40;
+  
+  /* Abstände */
+  --spacing-xs: 0.25rem;   /* 4px */
+  --spacing-sm: 0.5rem;    /* 8px */
+  --spacing-md: 1rem;      /* 16px */
+  --spacing-lg: 1.5rem;    /* 24px */
+  --spacing-xl: 2rem;      /* 32px */
+  --spacing-xxl: 3rem;     /* 48px */
+  
+  /* Typografie */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-xxl: 1.5rem;     /* 24px */
+  --font-size-xxxl: 2rem;      /* 32px */
+  
+  /* Schriftgewicht */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Border-Radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 50rem;
+  
+  /* Schatten */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
+  /* Animation Duration */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.5s;
+  
+  /* Z-Index */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+}

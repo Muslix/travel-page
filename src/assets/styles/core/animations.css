@@ -1,0 +1,72 @@
+/**
+ * Animationen und Übergänge
+ * Enthält alle Animationen, Keyframes und Übergangseffekte
+ */
+
+ @import './variables.css';
+
+ /*******************************
+  * ANIMATIONS & TRANSITIONS
+  *******************************/
+ 
+ /* Seitenübergang-Animationen */
+ .fade-enter-active,
+ .fade-leave-active {
+   transition: opacity var(--transition-normal) ease;
+   overflow: hidden;
+   width: 100%;
+   will-change: opacity;
+ }
+ 
+ .fade-enter-from,
+ .fade-leave-to {
+   opacity: 0;
+ }
+ 
+ /* Marquee-Effekt Animationen */
+ @keyframes marqueeTitleEffect {
+   0% { transform: translateX(0); }
+   100% { transform: translateX(calc(-100% + 150px)); }
+ }
+ 
+ @keyframes marqueeSubtitleEffect {
+   0% { transform: translateX(0); }
+   100% { transform: translateX(calc(-100% + 150px)); }
+ }
+ 
+ /* Seitenübergangs-Animation */
+ .page-transition {
+   animation: fadeIn var(--transition-normal) ease-out;
+   width: 100%;
+   overflow-x: hidden;
+   will-change: opacity, transform;
+ }
+ 
+ @keyframes fadeIn {
+   from { opacity: 0; transform: translateY(20px); }
+   to { opacity: 1; transform: translateY(0); }
+ }
+ 
+ /* Scroll-Animation für den Mauszeiger */
+ @keyframes scroll {
+   0% { opacity: 1; transform: translate(-50%, 0); }
+   100% { opacity: 0; transform: translate(-50%, 10px); }
+ }
+ 
+ /* Zoom-In-Animation */
+ @keyframes zoomIn {
+   from { transform: scale(0.95); opacity: 0; }
+   to { transform: scale(1); opacity: 1; }
+ }
+ 
+ /* Allgemeine Animation-Klassen */
+ .hover-effect {
+   transition: transform var(--transition-normal) ease;
+   will-change: transform;
+ }
+ 
+ .hover-effect:hover {
+   transform: translateY(-5px);
+ }
+ 
+ /* Weitere Animationen können hier hinzugefügt werden */

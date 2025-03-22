@@ -1,8 +1,7 @@
 /* Global Styles für die Travel-Page Website */
 
 /* Import des Theming-Systems */
-@import './assets/theme.css';
-@import './assets/components.css';
+@import './assets/styles/index.css';
 
 html {
   scroll-behavior: smooth;

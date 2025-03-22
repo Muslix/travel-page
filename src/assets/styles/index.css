@@ -1,0 +1,31 @@
+/**
+ * Hauptimport-Datei
+ * Zentrale Datei für den Import aller Module
+ */
+
+/* Core */
+@import './core/variables.css';
+@import './core/theme.css';
+@import './core/base.css';
+@import './core/animations.css';
+@import './core/layout.css';
+
+/* Komponenten */
+@import './components/navbar.css';
+@import './components/buttons.css';
+@import './components/cards.css';
+@import './components/badges-tags.css';
+@import './components/modals.css';
+@import './components/footer.css';
+@import './components/form-elements.css';
+@import './components/feature-items.css';
+
+/* Layouts */
+@import './layouts/gallery.css';
+@import './layouts/equipment.css';
+@import './layouts/home.css';
+@import './layouts/route.css';
+
+/* Utilities */
+@import './utilities/utilities.css';
+@import './utilities/responsive.css';

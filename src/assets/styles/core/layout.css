@@ -1,0 +1,267 @@
+/**
+ * Layout Styles
+ * Definiert das grundlegende Layoutsystem für die Anwendung
+ */
+
+@import './variables.css';
+
+/* App-Container Styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: var(--spacing-xxl);
+}
+
+/* Seitenübergangs-Animationen */
+.page-transition-enter-active,
+.page-transition-leave-active {
+  transition: opacity var(--transition-normal) ease;
+  will-change: opacity;
+}
+
+.page-transition-enter-from,
+.page-transition-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity var(--transition-normal) ease;
+  overflow: hidden;
+  width: 100%;
+  will-change: opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Section Layouts */
+.section {
+  padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.section-sm {
+  padding: var(--spacing-lg) 0;
+}
+
+.section-lg {
+  padding: var(--spacing-xxl) 0;
+}
+
+/* Hintergründe für Abschnitte */
+.section-bg-light {
+  background-color: var(--background-light);
+}
+
+.section-bg-medium {
+  background-color: var(--background-medium);
+}
+
+.section-bg-muted {
+  background-color: var(--background-muted);
+}
+
+.section-bg-dark {
+  background-color: var(--background-dark);
+  color: white;
+}
+
+.section-bg-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.section-bg-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.section-bg-accent {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Container und Grid System */
+.container-fluid {
+  width: 100%;
+  padding-right: var(--spacing-md);
+  padding-left: var(--spacing-md);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+
+/* Spalten für verschiedene Größen */
+[class*="col-"] {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.col-md-6 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.col-lg-4 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+.col-lg-3 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 576px) {
+  .col-sm-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  
+  .col-md-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+}
+
+@media (min-width: 992px) {
+  .col-lg-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+  
+  .col-lg-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+  
+  .col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  
+  .col-lg-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }
+}
+
+/* Flexbox Utility-Klassen */
+.d-flex {
+  display: flex !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.justify-content-start {
+  justify-content: flex-start !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.justify-content-around {
+  justify-content: space-around !important;
+}
+
+.align-items-start {
+  align-items: flex-start !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.align-items-end {
+  align-items: flex-end !important;
+}
+
+.align-self-center {
+  align-self: center !important;
+}
+
+/* Abstände zwischen Elementen */
+.gap-1 {
+  gap: var(--spacing-xs) !important;
+}
+
+.gap-2 {
+  gap: var(--spacing-sm) !important;
+}
+
+.gap-3 {
+  gap: var(--spacing-md) !important;
+}
+
+.gap-4 {
+  gap: var(--spacing-lg) !important;
+}
+
+.gap-5 {
+  gap: var(--spacing-xl) !important;
+}

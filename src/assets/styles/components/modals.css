@@ -1,0 +1,166 @@
+/**
+ * Modal & Lightbox Komponenten
+ * Enthält alle Stile für Modals, Dialoge und Lightboxes
+ */
+
+ @import '../core/variables.css';
+
+ /*******************************
+  * MODALS & LIGHTBOX
+  *******************************/
+ 
+ /* Modals */
+ .modal-content {
+   border-radius: 10px;
+   will-change: opacity, transform;
+   transform: translateZ(0);
+ }
+ 
+ .modal-header {
+   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Lightbox/Modals */
+ .modal-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: rgba(0, 0, 0, 0.8);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: var(--z-index-modal);
+ }
+ 
+ /* Lightbox Content und Navigationsbuttons */
+ .lightbox-content {
+   position: relative;
+   max-width: 90%;
+   max-height: 90%;
+   animation: zoomIn 0.3s ease;
+ }
+ 
+ .lightbox-image-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+ 
+ .lightbox-image {
+   max-width: 100%;
+   max-height: 80vh;
+   object-fit: contain;
+   border-radius: var(--radius-sm);
+   box-shadow: 0 0 30px rgba(0,0,0,0.5);
+ }
+ 
+ .lightbox-caption {
+   color: white;
+   text-align: center;
+   padding: 15px;
+ }
+ 
+ .lightbox-close {
+   position: absolute;
+   top: -40px;
+   right: 0;
+   background: none;
+   border: none;
+   color: white;
+   font-size: 1.5rem;
+   cursor: pointer;
+   z-index: 1110;
+   transition: transform 0.3s ease;
+ }
+ 
+ .lightbox-close:hover {
+   transform: scale(1.1);
+ }
+ 
+ .lightbox-prev,
+ .lightbox-next {
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   background: rgba(255, 255, 255, 0.2);
+   border: none;
+   color: white;
+   font-size: 2rem;
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: background 0.3s ease, transform 0.3s ease;
+   will-change: transform;
+ }
+ 
+ .lightbox-prev:hover,
+ .lightbox-next:hover {
+   background: rgba(255, 255, 255, 0.4);
+   transform: translateY(-50%) scale(1.1);
+ }
+ 
+ .lightbox-prev {
+   left: -60px;
+ }
+ 
+ .lightbox-next {
+   right: -60px;
+ }
+ 
+ .lightbox-counter {
+   position: absolute;
+   bottom: -30px;
+   left: 0;
+   right: 0;
+   text-align: center;
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 0.9rem;
+ }
+ 
+ /* Responsive Anpassungen */
+ @media (max-width: 992px) {
+   .lightbox-prev {
+     left: -40px;
+   }
+ 
+   .lightbox-next {
+     right: -40px;
+   }
+ }
+ 
+ @media (max-width: 768px) {
+   .lightbox-prev,
+   .lightbox-next {
+     width: 40px;
+     height: 40px;
+     font-size: 1.5rem;
+   }
+ 
+   .lightbox-prev {
+     left: -20px;
+   }
+ 
+   .lightbox-next {
+     right: -20px;
+   }
+ }
+ 
+ @media (max-width: 576px) {
+   .lightbox-image {
+     max-height: 70vh;
+   }
+ 
+   .lightbox-caption h4 {
+     font-size: 1.2rem;
+   }
+ 
+   .lightbox-caption p {
+     font-size: 0.9rem;
+   }
+ }

@@ -1,0 +1,165 @@
+/**
+ * Homepage-Komponenten
+ * Enthält Stile für Homepage-spezifische Elemente
+ */
+
+ @import '../core/variables.css';
+
+ /*******************************
+  * HOME PAGE SPECIFIC STYLES
+  *******************************/
+ 
+ /* Hero-Bereich */
+ .hero-parallax {
+   position: relative;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: white;
+   background-image: url('/hero-bike.jpg');
+   background-size: cover;
+   background-position: center;
+   background-attachment: fixed;
+   text-align: center;
+   overflow: hidden;
+ }
+ 
+ .hero-parallax::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.4);
+   z-index: 1;
+ }
+ 
+ .parallax-content {
+   position: relative;
+   z-index: 2;
+   padding: 0 20px;
+ }
+ 
+ .text-shadow {
+   text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+ }
+ 
+ .hero-buttons {
+   margin-bottom: 3rem;
+ }
+ 
+ /* Scroll Indicator */
+ .scroll-indicator {
+   position: absolute;
+   bottom: 40px;
+   left: 50%;
+   transform: translateX(-50%);
+   text-align: center;
+   z-index: 3;
+   will-change: transform, opacity;
+ }
+ 
+ .mouse {
+   width: 26px;
+   height: 40px;
+   border: 2px solid white;
+   border-radius: 13px;
+   margin: 0 auto 10px;
+   position: relative;
+ }
+ 
+ .wheel {
+   width: 4px;
+   height: 8px;
+   background: white;
+   position: absolute;
+   top: 7px;
+   left: 50%;
+   transform: translateX(-50%);
+   border-radius: 2px;
+   animation: scroll 2s infinite;
+   will-change: transform, opacity;
+ }
+ 
+ .scroll-text {
+   color: white;
+   font-size: 0.8rem;
+   letter-spacing: 2px;
+   text-transform: uppercase;
+ }
+ 
+ /* Countdown Styles */
+ .countdown-section {
+   background-color: var(--background-muted);
+   padding: 40px 0;
+ }
+ 
+ .countdown-timer {
+   display: flex;
+   justify-content: center;
+   gap: 20px;
+   flex-wrap: wrap;
+ }
+ 
+ .countdown-item {
+   text-align: center;
+   min-width: 100px;
+   will-change: contents;
+ }
+ 
+ .countdown-value {
+   font-size: 3rem;
+   font-weight: 700;
+   background-color: var(--primary-color);
+   color: white;
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 10px;
+   box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+   transform: translateZ(0);
+ }
+ 
+ .countdown-label {
+   font-size: 1rem;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   color: var(--secondary-color);
+ }
+ 
+ /* Intro-Sektion */
+ .intro-section {
+   padding: var(--spacing-xxl) 0;
+ }
+ 
+ .intro-image {
+   border-radius: var(--radius-md);
+   box-shadow: var(--shadow-md);
+   overflow: hidden;
+ }
+ 
+ .intro-image img {
+   transition: transform var(--transition-normal);
+ }
+ 
+ .intro-image:hover img {
+   transform: scale(1.05);
+ }
+ 
+ /* Responsive Anpassungen */
+ @media (max-width: 768px) {
+   .countdown-value {
+     font-size: 2.5rem;
+     width: 80px;
+     height: 80px;
+   }
+   
+   .hero-parallax {
+     background-attachment: scroll;
+   }
+ }
